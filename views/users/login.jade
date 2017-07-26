@@ -1,0 +1,23 @@
+extends ../layout
+
+block content
+  .page_body.padding_top_header
+    section.sign_up_section.mwidth_680
+
+      .resolution.padding_lr
+        .hn2.ta_c
+          h1 Log In
+        div #{message}
+        br
+        .mwidth_320
+          form.form_login.form_style_1(action='/users/login', novalidate='novalidate', method='post')
+            div
+              input(type='text', placeholder='Login', name='user_login', required='', aria-required='true')
+            div
+              input(type='password', placeholder='Password', name='user_password', required='', aria-required='true')
+            .form_footer
+              .form_footer_btns
+                .btn_color_fill
+                  button(type='submit') Log In
+              .form_footer_info.ta_c
+                a(href='/users/reset_password') Forgot password?
