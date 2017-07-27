@@ -1079,11 +1079,11 @@ export default StyleSheet.create({
         "transition": "all .18s ease-out"
     },
     "btn_filters_vis:before": {
-        "content": "\\e911",
+        "content": "\\f0b0",
         "width": "inherit",
         "height": "inherit",
-        "fontSize": 32,
-        "fontFamily": "icomoon",
+        "fontSize": 24,
+        "fontFamily": "FontAwesome",
         "top": -1,
         "left": -1,
         "display": "flex!important",

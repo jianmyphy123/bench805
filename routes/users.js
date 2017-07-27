@@ -102,6 +102,10 @@ router.post('/signup', function(req, res) {
 
 });
 
+router.get('/signup_confirmation', function(req, res) {
+  res.render('users/signup_confirmation', { title: 'Sign UP confirmation' });
+});
+
 router.get('/login', function(req, res, next) {
   res.render('users/login', {
     title: 'Log In'
@@ -143,7 +147,7 @@ passport.use(new LocalStrategy({
 					return done(null, false, { message: 'Invalid Password'});
 				}
 			});
-		}); 
+		});
 	}
 ));
 
@@ -153,18 +157,30 @@ router.post('/login', passport.authenticate('local', {
   failureFlash: true})
 );
 
+router.get('/reset_password_congratulation', function(req, res, next) {
+  res.render('users/reset_password_congratulation', {
+    title: 'Reset password | Congratulations'
+  });
+});
 
-
-router.get('/reset_password', function(req, res, next) {
-  res.render('users/reset_password', {
-    title: 'Reset password'
+router.get('/reset_password_fields', function(req, res, next) {
+  res.render('users/reset_password_fields', {
+    title: 'Reset password | Fields'
   });
 });
 
 router.get('/reset_password_sent', function(req, res, next) {
   res.render('users/reset_password_sent', {
-    title: 'Reset password | Instructions sent to email'
+    title: 'Reset password | Email sent'
   });
 });
+
+router.get('/reset_password', function(req, res, next) {
+  res.render('users/reset_password', {
+    title: 'Reset password. Step one'
+  });
+});
+
+
 
 module.exports = router;

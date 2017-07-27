@@ -17,7 +17,8 @@ block content
               li #{error.msg}
         br
         .mwidth_320
-          form.form_signup.form_style_1(action='/users/signup', novalidate='novalidate', method='post')
+          //form.form_signup.form_style_1(action='/users/signup', novalidate='novalidate', method='post')
+          form.form_signup.form_style_1(action='/users/signup_confirmation', novalidate='novalidate', method='get')
             div
               input(type='text', placeholder='First name*', name='user_first_name', required='', aria-required='true', value='#{firstname ? firstname : ""}')
             div

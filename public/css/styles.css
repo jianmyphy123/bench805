@@ -1069,11 +1069,11 @@
 }
 
 .btn_filters_vis:before {
-    content: "\e911";
+    content: "\f0b0";
     width: inherit;
     height: inherit;
-    font-size: 32px;
-    font-family: icomoon;
+    font-size: 24px;
+    font-family: FontAwesome;
     top: -1px;
     left: -1px;
     display: -webkit-box!important;
