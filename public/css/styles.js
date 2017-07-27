@@ -783,11 +783,11 @@ export default StyleSheet.create({
         "display": "block"
     },
     "btn_user_tool_vis:before": {
-        "content": "\\e907",
+        "content": "\\f007",
         "width": "inherit",
         "height": "inherit",
-        "fontSize": 32,
-        "fontFamily": "icomoon",
+        "fontSize": 24,
+        "fontFamily": "FontAwesome",
         "top": -2,
         "left": -1,
         "display": "flex!important",
@@ -1266,7 +1266,7 @@ export default StyleSheet.create({
     "columns_3_container img_icn:before": {
         "width": 140,
         "height": 140,
-        "fontSize": 100,
+        "fontSize": 70,
         "display": "flex!important",
         "WebkitBoxPack": "center!important",
         "MsFlexPack": "center!important",

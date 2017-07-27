@@ -53,27 +53,21 @@ export default StyleSheet.create({
         "color": "#f39b12"
     },
     "icon-icon_main_02:before": {
-        "content": "\\e901",
         "color": "#f39b12"
     },
     "icon-icon_main_03:before": {
-        "content": "\\e902",
         "color": "#f39b12"
     },
     "icon-icon_main_04:before": {
-        "content": "\\e903",
         "color": "#f39b12"
     },
     "icon-icon_main_05:before": {
-        "content": "\\e904",
         "color": "#f39b12"
     },
     "icon-icon_main_06:before": {
-        "content": "\\e905",
         "color": "#f39b12"
     },
     "icon-icon_main_01:before": {
-        "content": "\\e908",
         "color": "#f39b12"
     }
 });

@@ -737,11 +737,11 @@
 }
 
 .btn_user_tool_vis:before {
-    content: "\e907";
+    content: "\f007";
     width: inherit;
     height: inherit;
-    font-size: 32px;
-    font-family: icomoon;
+    font-size: 24px;
+    font-family: FontAwesome;
     top: -2px;
     left: -1px;
     display: -webkit-box!important;
@@ -1274,7 +1274,7 @@
 .columns_3_container .img_icn:before {
     width: 140px;
     height: 140px;
-    font-size: 100px;
+    font-size: 70px;
     display: -webkit-box!important;
     display: -ms-flexbox!important;
     display: -webkit-flex!important;
@@ -2166,7 +2166,7 @@ only screen and (max-device-width:840px) {
         height: 100px
     }
     .main_wi_section .columns_3_container>div .img_icn:before {
-        font-size: 100px!important;
+        font-size: 75px!important;
         width: 100px;
         height: 100px
     }
