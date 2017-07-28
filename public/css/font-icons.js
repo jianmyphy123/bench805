@@ -69,5 +69,9 @@ export default StyleSheet.create({
     },
     "icon-icon_main_01:before": {
         "color": "#f39b12"
+    },
+    "icon-icon_arrow_01:before": {
+        "content": "\\f178",
+        "color": "#f39b12"
     }
 });

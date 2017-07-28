@@ -601,6 +601,9 @@ export default StyleSheet.create({
         "paddingLeft": 0,
         "borderBottom": "1px solid #e2e3e7"
     },
+    "padding_list": {
+        "paddingLeft": 20
+    },
     "quote": {
         "paddingTop": 20,
         "paddingRight": 20,

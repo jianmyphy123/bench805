@@ -566,6 +566,10 @@
     color: #f39b12
 }
 
+.padding_list {
+  padding-left: 20px;
+}
+
 .quote,
 .quote_c {
     padding: 20px;

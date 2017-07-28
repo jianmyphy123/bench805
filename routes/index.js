@@ -11,7 +11,7 @@ router.get('/results_table', function(req, res) {
 });
 
 router.get('/about', function(req, res) {
-  res.render('index/about', {title: 'Privacy Policy'});
+  res.render('index/about', {title: 'About'});
 });
 
 router.get('/terms_of_service', function(req, res) {

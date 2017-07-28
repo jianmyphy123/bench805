@@ -67,3 +67,7 @@
 
   color: #f39b12;
 }
+.icon-icon_arrow_01:before {
+  content: "\f178";
+  color: #f39b12;
+}
