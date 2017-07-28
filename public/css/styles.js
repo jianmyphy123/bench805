@@ -2048,5 +2048,13 @@ export default StyleSheet.create({
         "color": "#3c763d",
         "background": "#dff0d8",
         "borderColor": "#d6e9c6"
+    },
+    "ulerror": {
+        "WebkitAnimation": "seconds 1.0s forwards",
+        "WebkitAnimationIterationCount": 1,
+        "WebkitAnimationDelay": "3s",
+        "animation": "seconds 1.0s forwards",
+        "animationIterationCount": 1,
+        "animationDelay": "3s"
     }
 });

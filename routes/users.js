@@ -74,28 +74,34 @@ router.post('/signup', function(req, res) {
   		User.createUser(newUser, function(err, user) {
   			if(err) console.log(err);
   			console.log(user);
+
+        // Success Message
+    		req.flash('success', 'Account registered! Please check your e-mail for activation link');
+
+        res.render('partials/loading');
+
+
+        var mainOptions = {
+          from: 'John Doe <johndoe@outlook.com>',
+          to: email,
+          subject: domain + ' Activation Link',
+          text: 'Hello '+firstname+',Thank you for your registering at '+ domain +'. Please click on the link to complete your activation: http://'+domain+'/activate/'+temporaryToken,
+          html: 'Hello <strong>'+firstname+'</strong>,<br><br>Thank you for your registering at localhost.com. Please click on the link to complete your activation: <br><br><a href="http://'+domain+'/activate/'+temporaryToken+'">http://'+domain+'/activate</a>'
+        }
+
+        transporter.sendMail(mainOptions, function(error, info) {
+          if(error) {
+            console.log(error);
+          }
+          else {
+            console.log('Message Sent: '+info.response);
+            res.render('users/signup_confirmation');
+          }
+        });
   		});
 
-  		// Success Message
-  		req.flash('success', 'Account registered! Please check your e-mail for activation link');
 
-      var mainOptions = {
-        from: 'John Doe <johndoe@outlook.com>',
-        to: email,
-        subject: domain + ' Activation Link',
-        text: 'Hello '+firstname+',Thank you for your registering at '+ domain +'. Please click on the link to complete your activation: http://'+domain+'/activate/'+temporaryToken,
-        html: 'Hello <strong>'+firstname+'</strong>,<br><br>Thank you for your registering at localhost.com. Please click on the link to complete your activation: <br><br><a href="http://'+domain+'/activate/'+temporaryToken+'">http://'+domain+'/activate</a>'
-      }
 
-      transporter.sendMail(mainOptions, function(error, info) {
-        if(error) {
-          console.log(error);
-        }
-        else {
-          console.log('Message Sent: '+info.response);
-          res.render('users/activation_sent');
-        }
-      });
 
   	}
   });
@@ -152,10 +158,14 @@ passport.use(new LocalStrategy({
 ));
 
 router.post('/login', passport.authenticate('local', {
-  successRedirect: '/',
-	failureRedirect: '/users/login',
-  failureFlash: true})
-);
+    successRedirect: '/',
+  	failureRedirect: '/users/login',
+    failureFlash: true
+  }), function(req, res) {
+	console.log('Authentication Successful');
+	req.flash('success', 'You are logged in');
+	res.redirect('/users/login');
+});
 
 router.get('/reset_password_congratulation', function(req, res, next) {
   res.render('users/reset_password_congratulation', {

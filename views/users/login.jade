@@ -7,7 +7,7 @@ block content
       .resolution.padding_lr
         .hn2.ta_c
           h1 Log In
-        div #{message}
+        != messages()
         br
         .mwidth_320
           form.form_login.form_style_1(action='/users/login', novalidate='novalidate', method='post')
