@@ -353,20 +353,20 @@ jQuery(document).ready(function(){
 	// LOGIN
 	$(".form_login").validate({
 		rules:{
-			user_login:{
+			email:{
 				required: true,
 				email: true
 			},
-			user_password:{
+			password:{
 				required: true
 			}
 		},
 		messages:{
-			user_login:{
+			email:{
 				required: "This field is required.",
 				email: "Wrong format."
 			},
-			user_password:{
+			password:{
 				required: "This field can not be empty."
 			}
 		}
@@ -374,91 +374,93 @@ jQuery(document).ready(function(){
 
 	$(".form_signup").validate({
 		rules:{
-			user_first_name:{
+			firstname:{
 				required: true
 			},
-			user_last_name:{
+			lastname:{
 				required: true
 			},
-			user_email:{
+			email:{
 				required: true,
 				email: true
 			},
-			job_function:{
+			jobfunction:{
 				required: true
 			},
-			user_password:{
+			password:{
 				required: true,
 				minlength: 6
 			},
-			user_confirm_password:{
+			password2:{
 				required: true,
-				equalTo: "#user_password"
+				equalTo: "#password"
 			}
 
 		},
 		messages:{
-			user_first_name:{
+			firstname:{
 				required: "This field is required."
 			},
-			user_last_name:{
+			lastname:{
 				required: "This field is required."
 			},
-			user_email:{
+			email:{
 				required: "This field is required.",
 				email: "Wrong format."
 			},
-			job_function:{
+			jobfunction:{
 				required: "Select one of the items."
 			},
-			user_password:{
+			password:{
 				required: "This field is required.",
 				minlength: "Too short password."
 			},
-			user_confirm_password:{
+			password2:{
 				required: "Please confirm the password.",
 				equalTo: "Passwords do not match"
 			}
 		}
 	});
 
-	$(".form_reset_password").validate({
-		rules:{
-			user_new_password:{
-				required: true,
-				minlength: 6
-			},
-			user_confirm_new_password:{
-				required: true,
-				equalTo: "#user_new_password"
-			}
 
-		},
-		messages:{
-			user_new_password:{
-				required: "Please enter a new password.",
-				minlength: "Too short password."
-			},
-			user_confirm_new_password:{
-				required: "Please confirm the password.",
-				equalTo: "Passwords do not match"
-			}
-		}
-	});
 
 	$(".form_reset_password_email").validate({
 		rules:{
-			user_email:{
+			email:{
 				required: true,
 				email: true,
 				minlength: 4
 			}
 		},
 		messages: {
-			user_email: {
+			email: {
 				required: "Please enter your email.",
 				email: "Wrong format.",
 				minlength: "Too short email."
+			}
+		}
+	});
+
+	$(".form_reset_password").validate({
+		rules:{
+			password:{
+				required: true,
+				minlength: 6
+			},
+			password2:{
+				required: true,
+				equalTo: "#password"
+			}
+
+		},
+		messages:{
+			password:{
+				required: "Please enter a new password.",
+				minlength: "Too short password."
+			},
+			password2:{
+				required: "Please confirm the password.",
+				equalTo: "Passwords do not match"
 			}
 		}
 	});

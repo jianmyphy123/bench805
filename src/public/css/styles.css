@@ -772,7 +772,7 @@
 }
 
 .logged .btn_user_tool_vis:before {
-    content: "\e910"
+    content: "\f007"
 }
 
 .header_right_tool {
@@ -932,6 +932,10 @@
 
 .h_logged_box>.btn_logout>:hover:before {
     color: #ffb930
+}
+
+.btn_logout a {
+  text-decoration: none;
 }
 
 .h_logged_box,
@@ -2329,7 +2333,7 @@ ul.error li {
   border-color: #d6e9c6;
 }
 
-ul.error {
+ul.success, ul.error {
   -webkit-animation: seconds 1.0s forwards;
   -webkit-animation-iteration-count: 1;
   -webkit-animation-delay: 3s;

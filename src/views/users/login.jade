@@ -12,12 +12,12 @@ block content
         .mwidth_320
           form.form_login.form_style_1(action='/users/login', novalidate='novalidate', method='post')
             div
-              input(type='text', placeholder='Login', name='user_login', required='', aria-required='true')
+              input(type='email', placeholder='Login', name='email', required='', aria-required='true')
             div
-              input(type='password', placeholder='Password', name='user_password', required='', aria-required='true')
+              input(type='password', placeholder='Password', name='password', required='', aria-required='true')
             .form_footer
               .form_footer_btns
                 .btn_color_fill
                   button(type='submit') Log In
               .form_footer_info.ta_c
-                a(href='/users/reset_password') Forgot password?
+                a(href='/users/resetpassword') Forgot password?

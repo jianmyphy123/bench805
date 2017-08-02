@@ -7,25 +7,16 @@ var session = require('express-session');
 var passport = require('passport');
 var expressValidator = require('express-validator');
 var flash = require('connect-flash');
-const mongoose = require('mongoose');
-const config = require('./config/database');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var dashboard = require('./routes/dashboard');
+import { jwtSecret } from './config';
 
 var app = express();
 
-// Connect To Database
-mongoose.connect(config.database);
+var PORT = process.env.PORT || 3000;
 
-// On Connection
-mongoose.connection.on('connected', () => {
-  console.log('Connected to database ' + config.database);
-});
-
-mongoose.connection.on('error', (err) => {
-  console.log('Database ' + err);
-});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -36,6 +27,12 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(session({
+	secret: jwtSecret,
+	saveUninitialized: true,
+	resave: true
+}));
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -57,13 +54,7 @@ app.use(expressValidator({
   }
 }));
 
-app.use(cookieParser());
-
-app.use(session({
-	secret: 'secret',
-	saveUninitialized: true,
-	resave: true
-}));
+app.use(cookieParser(jwtSecret));
 
 app.use(flash());
 app.use(function(req, res, next) {
@@ -73,9 +64,14 @@ app.use(function(req, res, next) {
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.get('*', function(req, res, next) {
+  res.locals.user = req.user || null;
+  next();
+});
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/dashboard', dashboard);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -105,10 +101,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.listen(3000, process.env.IP, function(){
-    console.log("Server has started");
+app.listen(PORT, process.env.IP, function(){
+  console.log("Server has started " + PORT);
 });
-
-// app.listen(process.env.PORT, process.env.IP, function(){
-//     console.log("Server has started");
-// });

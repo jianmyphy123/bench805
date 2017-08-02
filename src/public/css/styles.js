@@ -811,7 +811,7 @@ export default StyleSheet.create({
         "color": "#ffaf26"
     },
     "logged btn_user_tool_vis:before": {
-        "content": "\\e910"
+        "content": "\\f007"
     },
     "header_right_tool": {
         "display": "block",
@@ -955,6 +955,9 @@ export default StyleSheet.create({
     },
     "h_logged_box>btn_logout>:hover:before": {
         "color": "#ffb930"
+    },
+    "btn_logout a": {
+        "textDecoration": "none"
     },
     "logged h_login_box": {
         "display": "none"
@@ -2051,6 +2054,14 @@ export default StyleSheet.create({
         "color": "#3c763d",
         "background": "#dff0d8",
         "borderColor": "#d6e9c6"
+    },
+    "ulsuccess": {
+        "WebkitAnimation": "seconds 1.0s forwards",
+        "WebkitAnimationIterationCount": 1,
+        "WebkitAnimationDelay": "3s",
+        "animation": "seconds 1.0s forwards",
+        "animationIterationCount": 1,
+        "animationDelay": "3s"
     },
     "ulerror": {
         "WebkitAnimation": "seconds 1.0s forwards",
