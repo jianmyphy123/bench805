@@ -101,15 +101,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-<<<<<<< HEAD:src/app.js
 app.listen(PORT, process.env.IP, function(){
   console.log("Server has started " + PORT);
-=======
-// app.listen(3000, process.env.IP, function(){
-//     console.log("Server has started");
-// });
-
-app.listen(process.env.PORT, process.env.IP, function(){
-    console.log("Server has started");
->>>>>>> eb079b43fc941b1cbc306c8747c52df96055fff6:app.js
 });
