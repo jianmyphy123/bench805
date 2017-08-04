@@ -25,7 +25,7 @@ connection.connect(function(err) {
 
 export const createUser = (newUser, callback) => {
 
-  let { firstname, lastname, email, password, company, jobfunction } = newUser;
+  let { firstname, lastname, email, password, company, jobfunction, signupDate } = newUser;
 
   let temporaryToken = jwt.sign({ firstname, lastname, email }, jwtSecret, { expiresIn: '24h'});
 
@@ -36,7 +36,8 @@ export const createUser = (newUser, callback) => {
     password: bcrypt.hashSync(password, 10),
     company,
     jobfunction,
-    temporaryToken
+    temporaryToken,
+		signupDate
   }
 
   connection.query('insert into user set ? ', user, (err, results) => {

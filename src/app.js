@@ -13,10 +13,11 @@ var users = require('./routes/users');
 var dashboard = require('./routes/dashboard');
 import { jwtSecret } from './config';
 
+
+
 var app = express();
 
 var PORT = process.env.PORT || 3000;
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

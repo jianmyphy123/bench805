@@ -4,6 +4,7 @@ import nodemailer from 'nodemailer';
 const router = express.Router();
 import { getUserByTemporaryToken, activateAccount, getUserByResetToken, resetPasswordByToken } from '../models/user';
 import { jwtSecret, emailConfig } from '../config';
+import { ensureAuthenticated } from '../common/authGuard';
 
 
 var mailTransporter = nodemailer.createTransport({
@@ -160,7 +161,7 @@ router.get('/logout', function(req, res) {
 
 
 
-router.get('/results_table', function(req, res) {
+router.get('/results_table', ensureAuthenticated, function(req, res) {
   res.render('index/results_table', {title: 'Result'});
 });
 

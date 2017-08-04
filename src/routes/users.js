@@ -44,6 +44,8 @@ router.post('/signup', function(req, res) {
 	req.checkBody('password', 'Password field is required').notEmpty();
 	req.checkBody('password2', 'Password do not match').equals(password);
 
+  let signupDate = new Date();
+
   let errors = null;
 
   req.getValidationResult().then( result => {
@@ -55,7 +57,7 @@ router.post('/signup', function(req, res) {
 
     } else {
 
-  		let newUser = { firstname, lastname, email, password, company, jobfunction };
+  		let newUser = { firstname, lastname, email, password, company, jobfunction, signupDate };
 
       isExistUser(email, (err, isExist) => {
 
@@ -123,7 +125,7 @@ passport.use(new LocalStrategy({
 
 			if(!user) {
 				console.log('Unknown User');
-				return done(null, false, { message: 'Unknown User' });
+				return done(null, false, { message: 'Invalid email or password' });
 			}
 			comparePassword(password, user.password, function(err, isMatch) {
 				if(err) console.log(err);
@@ -135,7 +137,7 @@ passport.use(new LocalStrategy({
             return done(null, user);
 				} else {
 					console.log('Invalid Password');
-					return done(null, false, { message: 'Invalid Password'});
+					return done(null, false, { message: 'Invalid email or password'});
 				}
 			});
 
