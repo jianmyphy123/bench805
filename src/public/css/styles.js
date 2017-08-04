@@ -352,6 +352,9 @@ export default StyleSheet.create({
     "hn6>*": {
         "font": "800 16px/18px \"Exo 2\", Helvetica, Arial, sans-serif"
     },
+    "hn3 a": {
+        "textDecoration": "none"
+    },
     "hn_ll": {
         "paddingLeft": 15,
         "borderLeft": "5px solid #f39b12"

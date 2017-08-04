@@ -343,6 +343,10 @@
     font: 800 16px/18px "Exo 2", Helvetica, Arial, sans-serif
 }
 
+.hn3 a {
+  text-decoration: none;
+}
+
 .hn_ll {
     padding-left: 15px;
     border-left: 5px solid #f39b12
