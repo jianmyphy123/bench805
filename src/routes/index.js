@@ -27,8 +27,7 @@ router.get('/activate/:token', (req, res) => {
 
   console.log('token', token);
 
-  getUserByTemporaryToken(token, (err, user) => {
-    if(err) console.log(err);
+  getUserByTemporaryToken(token, user => {
 
     jwt.verify(token, jwtSecret, (err, decoded) => {
 
@@ -42,30 +41,25 @@ router.get('/activate/:token', (req, res) => {
         res.redirect('/users/signup/index');
       } else {
 
-        activateAccount(token, err => {
-          if(err)
-            console.log(err);
-          else {
+        activateAccount(token, () => {
 
-            var emailOptions = {
-              from: emailConfig.serviceName + ' <'+ emailConfig.serviceEmail +'>',
-              to: user.email,
-              subject: 'Your Account Activated',
-              text: 'Hello '+user.firstname+', Your account has been successfully activated!',
-              html: 'Hello <strong>'+user.firstname+'</strong>,<br><br>Your account has been successfully activated!'
-            }
-
-            mailTransporter.sendMail(emailOptions, (error, info) => {
-              if(error) {
-                console.log(error);
-              } else {
-                console.log('Message Sent: '+info.response);
-
-                res.render('users/signup/congratulation', {title: 'Congratulations'});
-              }
-            });
-
+          var emailOptions = {
+            from: emailConfig.serviceName + ' <'+ emailConfig.serviceEmail +'>',
+            to: user.email,
+            subject: 'Your Account Activated',
+            text: 'Hello '+user.firstname+', Your account has been successfully activated!',
+            html: 'Hello <strong>'+user.firstname+'</strong>,<br><br>Your account has been successfully activated!'
           }
+
+          mailTransporter.sendMail(emailOptions, (error, info) => {
+            if(error) {
+              console.log(error);
+            } else {
+              console.log('Message Sent: '+info.response);
+
+              res.render('users/signup/congratulation', {title: 'Congratulations'});
+            }
+          });
         })
 
       }
@@ -78,9 +72,7 @@ router.get('/resetpassword/:token', (req, res) => {
 
   let token = req.params.token;
 
-  getUserByResetToken(token, (err, user) => {
-    if(err)
-      console.log(err);
+  getUserByResetToken(token, user => {
 
     jwt.verify(token, jwtSecret, (err, decode) => {
 
@@ -120,9 +112,7 @@ router.post('/savepassword', (req, res) => {
 
     } else {
 
-      getUserByResetToken(token, (err, user) => {
-        if(err)
-          console.log(err);
+      getUserByResetToken(token, user => {
 
         jwt.verify(token, jwtSecret, (err, decode) => {
 
@@ -136,9 +126,7 @@ router.post('/savepassword', (req, res) => {
             res.redirect('/users/resetpassword');
           } else {
 
-            resetPasswordByToken(password, token, err => {
-              if(err)
-                console.log(err);
+            resetPasswordByToken(password, token, () => {
 
               res.render('users/resetpassword/congratulation', { title: 'Reset password. Congratulations' });
 

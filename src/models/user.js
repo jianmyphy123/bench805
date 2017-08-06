@@ -6,22 +6,12 @@ import { jwtSecret, dbConfig } from '../config';
 
 
 
-const connection = mysql.createConnection({
+const mysqlPool = mysql.createPool({
 	host: dbConfig.host,
 	user: dbConfig.user,
 	password: dbConfig.password,
 	database: dbConfig.database
 });
-
-connection.connect(function(err) {
-  if (err) {
-    console.error('error connecting: ' + err.stack);
-    return;
-  }
-
-  console.log('connected to MySQL as id: ' + connection.threadId);
-});
-
 
 export const createUser = (newUser, callback) => {
 
@@ -40,53 +30,129 @@ export const createUser = (newUser, callback) => {
 		signupDate
   }
 
-  connection.query('insert into user set ? ', user, (err, results) => {
-    return callback(err, results, temporaryToken);
-  });
+	mysqlPool.getConnection((err, connection) => {
+		if(err) {
+			connection.release();
+			console.log(err);
+			return;
+		}
+
+		connection.query('insert into user set ? ', user, (err, results) => {
+			if(err) {
+				connection.release();
+				console.log(err);
+				return;
+			}
+
+			connection.release();
+
+			// if(results.length == 0)
+			// 	return callback(false);
+			//
+			// return callback(results[0]);
+
+			return callback(results, temporaryToken);
+
+		});
+
+	});
+
 }
 
 export const isExistUser = (email, callback) => {
 
-  getUserByEmail(email, (err, user) => {
+  getUserByEmail(email, user => {
     if(user)
-      return callback(err, true);
+      return callback(true);
     else
-      return callback(err, false);
+      return callback(false);
   });
 
 }
 
 export const getUserByEmail = (email, callback) => {
 
-  connection.query('select * from user where ?', { email }, (err, results) => {
+	mysqlPool.getConnection((err, connection) => {
+		if(err) {
+			connection.release();
+			console.log(err);
+			return;
+		}
 
-    if(results.length == 0)
-      return callback(err, false);
+		connection.query('select * from user where ?', { email }, (err, results) => {
+			if(err) {
+				connection.release();
+				console.log(err);
+				return;
+			}
 
-    return callback(err, results[0]);
-  });
+			connection.release();
+
+			if(results.length == 0)
+				return callback(false);
+
+			return callback(results[0]);
+
+		});
+
+	});
 
 }
 
 export const getUserById = (id, callback) => {
-  connection.query('select * from user where ?', { id }, (err, results) => {
+	mysqlPool.getConnection((err, connection) => {
+		if(err) {
+			connection.release();
+			console.log(err);
+			return;
+		}
 
-    if(results.length == 0)
-      return callback(err, false);
+		connection.query('select * from user where ?', { id }, (err, results) => {
+			if(err) {
+				connection.release();
+				console.log(err);
+				return;
+			}
 
-    return callback(err, results[0]);
-  });
+			connection.release();
+
+			if(results.length == 0)
+				return callback(false);
+
+			return callback(results[0]);
+
+		});
+
+	});
 }
 
 export const getUserByTemporaryToken = (temporaryToken, callback) => {
 
-  connection.query('select * from user where ?', { temporaryToken }, (err, results) => {
+	mysqlPool.getConnection((err, connection) => {
+		if(err) {
+			connection.release();
+			console.log(err);
+			return;
+		}
 
-    if(results.length == 0)
-      return callback(err, false);
+		connection.query('select * from user where ?', { temporaryToken }, (err, results) => {
+			if(err) {
+				connection.release();
+				console.log(err);
+				return;
+			}
 
-    return callback(err, results[0]);
-  });
+			connection.release();
+
+			if(results.length == 0)
+				return callback(false);
+
+			return callback(results[0]);
+
+		});
+
+	});
+
 }
 
 export const comparePassword = (candidatePassword, hash, callback) => {
@@ -97,34 +163,109 @@ export const comparePassword = (candidatePassword, hash, callback) => {
 }
 
 export const activateAccount = (temporaryToken, callback) => {
-  connection.query('update user set active = ?, temporaryToken = null where ?', [1, {temporaryToken}], err => {
-    callback(err);
-  });
+
+	mysqlPool.getConnection((err, connection) => {
+		if(err) {
+			connection.release();
+			console.log(err);
+			return;
+		}
+
+		connection.query('update user set active = ?, temporaryToken = null where ?', [1, {temporaryToken}], (err) => {
+			if(err) {
+				connection.release();
+				console.log(err);
+				return;
+			}
+
+			connection.release();
+
+			callback();
+
+		});
+
+	});
 }
 
 export const resetPasswordToken = (id, resetToken, callback) => {
-	connection.query('update user set ? where ? ', [{resetToken}, {id}], err => {
-		callback(err);
+
+	mysqlPool.getConnection((err, connection) => {
+		if(err) {
+			connection.release();
+			console.log(err);
+			return;
+		}
+
+		connection.query('update user set ? where ? ', [{resetToken}, {id}], (err) => {
+			if(err) {
+				connection.release();
+				console.log(err);
+				return;
+			}
+
+			connection.release();
+
+			callback();
+
+		});
+
 	});
+
 }
 
 export const getUserByResetToken = (resetToken, callback) => {
 
-  connection.query('select * from user where ?', { resetToken }, (err, results) => {
+	mysqlPool.getConnection((err, connection) => {
+		if(err) {
+			connection.release();
+			console.log(err);
+			return;
+		}
 
-    if(results.length == 0)
-      return callback(err, false);
+		connection.query('select * from user where ?', { resetToken }, (err, results) => {
+			if(err) {
+				connection.release();
+				console.log(err);
+				return;
+			}
 
-    return callback(err, results[0]);
-  });
+			connection.release();
+
+			if(results.length == 0)
+	      return callback(false);
+
+	    return callback(results[0]);
+
+		});
+
+	});
+
 }
 
 export const resetPasswordByToken = (password, resetToken, callback) => {
 
 	let hash = bcrypt.hashSync(password, 10);
 
-	connection.query('update user set password = ?, resetToken = null where ?', [hash, {resetToken}], (err, results) => {
-		callback(err);
+	mysqlPool.getConnection((err, connection) => {
+		if(err) {
+			connection.release();
+			console.log(err);
+			return;
+		}
+
+		connection.query('update user set password = ?, resetToken = null where ?', [hash, {resetToken}], err => {
+			if(err) {
+				connection.release();
+				console.log(err);
+				return;
+			}
+
+			connection.release();
+
+			callback();
+
+		});
+
 	});
 
 }

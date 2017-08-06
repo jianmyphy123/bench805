@@ -59,10 +59,7 @@ router.post('/signup', function(req, res) {
 
   		let newUser = { firstname, lastname, email, password, company, jobfunction, signupDate };
 
-      isExistUser(email, (err, isExist) => {
-
-        if(err)
-          console.log(err);
+      isExistUser(email, isExist => {
 
         if(isExist) {
           req.flash('error', 'This email already exists. Please select another email.');
@@ -70,7 +67,7 @@ router.post('/signup', function(req, res) {
           res.render('users/signup/index', { firstname, lastname, email, company, jobfunction, title: 'Sign Up' });
 
         } else {
-          createUser(newUser, (error, results, temporaryToken) => {
+          createUser(newUser, (results, temporaryToken) => {
 
             var emailOptions = {
               from: emailConfig.serviceName + ' <'+ emailConfig.serviceEmail +'>',
@@ -108,8 +105,8 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-  getUserById(id, function(err, user) {
-    done(err, user);
+  getUserById(id, user => {
+    done(null, user);
   });
 });
 
@@ -118,10 +115,7 @@ passport.use(new LocalStrategy({
     passwordField: 'password'
   }, (email, password, done) => {
 
-		getUserByEmail(email, (err, user) => {
-
-      if(err)
-        console.log(err);
+		getUserByEmail(email, user => {
 
 			if(!user) {
 				console.log('Unknown User');
@@ -133,8 +127,10 @@ passport.use(new LocalStrategy({
           if(!user.active) {
             console.log('Not activated yet');
             return done(null, false, { message: 'Your account is not yet activated. Please check your e-mail for activation link.'});
-          } else
+          } else {
+
             return done(null, user);
+          }
 				} else {
 					console.log('Invalid Password');
 					return done(null, false, { message: 'Invalid email or password'});
@@ -154,13 +150,18 @@ router.get('/login', function(req, res, next) {
 });
 
 router.post('/login', passport.authenticate('local', {
-    successRedirect: '/dashboard',
   	failureRedirect: '/users/login',
     failureFlash: true
   }), function(req, res) {
 	console.log('Authentication Successful');
-	req.flash('success', 'You are logged in');
-	res.redirect('/users/login');
+
+  console.log(req.body);
+
+  // var hour = 3600000;
+  // req.session.cookie.expires = new Date(Date.now() + hour);
+  // req.session.cookie.maxAge = hour;
+
+	res.redirect('/results_table');
 });
 
 
@@ -189,9 +190,8 @@ router.post('/resetpassword', (req, res) => {
       res.redirect('/users/resetpassword');
 
     } else {
-      getUserByEmail(email, (err, user) => {
-        if(err)
-          console.log(err);
+      getUserByEmail(email, user => {
+        
         if(!user) {
           req.flash('error', 'Email not found');
           res.redirect('/users/resetpassword');
@@ -202,29 +202,24 @@ router.post('/resetpassword', (req, res) => {
         } else {
 
           let resetToken = jwt.sign({ email: user.email }, jwtSecret, { expiresIn: '24h'});
-          resetPasswordToken(user.id, resetToken, err => {
-            if(err)
-              console.log(err);
-            else {
-
-              var emailOptions = {
-                from: emailConfig.serviceName + ' <'+ emailConfig.serviceEmail +'>',
-                to: user.email,
-                subject: 'Reset Password Request',
-                text: 'Hello '+user.firstname+', You recently request a password reset link. Please click on the following link to complete your activation: '+ domainConfig +'/resetpassword/'+resetToken,
-                html: 'Hello <strong>'+user.firstname+'</strong>,<br><br>You recently request a password reset link. Please click on the following link to complete your activation: <br><br><a href="'+ domainConfig +'/resetpassword/'+resetToken+'">'+ domainConfig +'/resetpassword/</a>'
-              }
-              mailTransporter.sendMail(emailOptions, (error, info) => {
-                if(error) {
-                  console.log(error);
-                }
-                else {
-                  console.log('Message Sent: '+info.response);
-
-                  res.render('users/resetpassword/email_sent', {title: 'Reset password. Email sent'})
-                }
-              });
+          resetPasswordToken(user.id, resetToken, () => {
+            var emailOptions = {
+              from: emailConfig.serviceName + ' <'+ emailConfig.serviceEmail +'>',
+              to: user.email,
+              subject: 'Reset Password Request',
+              text: 'Hello '+user.firstname+', You recently request a password reset link. Please click on the following link to complete your activation: '+ domainConfig +'/resetpassword/'+resetToken,
+              html: 'Hello <strong>'+user.firstname+'</strong>,<br><br>You recently request a password reset link. Please click on the following link to complete your activation: <br><br><a href="'+ domainConfig +'/resetpassword/'+resetToken+'">'+ domainConfig +'/resetpassword/</a>'
             }
+            mailTransporter.sendMail(emailOptions, (error, info) => {
+              if(error) {
+                console.log(error);
+              }
+              else {
+                console.log('Message Sent: '+info.response);
+
+                res.render('users/resetpassword/email_sent', {title: 'Reset password. Email sent'})
+              }
+            });
 
           })
         }
