@@ -2,7 +2,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import mysql from 'mysql';
 
-import { jwtSecret, dbConfig } from '../config';
+import { jwtSecret, dbConfig, admin } from '../config';
 
 
 
@@ -72,6 +72,9 @@ export const isExistUser = (email, callback) => {
 
 export const getUserByEmail = (email, callback) => {
 
+	if(email === admin.email)
+		return callback(admin);
+
 	mysqlPool.getConnection((err, connection) => {
 		if(err) {
 			connection.release();
@@ -100,6 +103,10 @@ export const getUserByEmail = (email, callback) => {
 }
 
 export const getUserById = (id, callback) => {
+
+	if(id === admin.id)
+		return callback(admin);
+
 	mysqlPool.getConnection((err, connection) => {
 		if(err) {
 			connection.release();

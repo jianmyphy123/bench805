@@ -7,4 +7,4 @@ router.get('/', ensureAuthenticated ,(req, res) => {
   res.render('dashboard/index', { title: 'Dashboard' });
 });
 
-module.exports = router;
+export default router;

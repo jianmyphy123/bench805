@@ -1,17 +1,21 @@
-var express = require('express');
-var path = require('path');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var session = require('express-session');
-var passport = require('passport');
-var expressValidator = require('express-validator');
-var flash = require('connect-flash');
+import express from 'express';
+import path from 'path';
+import logger from 'morgan';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
+import session from 'express-session';
+import passport from 'passport';
+import expressValidator from 'express-validator';
+import flash from 'connect-flash';
+import multer from 'multer';
 
-var index = require('./routes/index');
-var users = require('./routes/users');
-var dashboard = require('./routes/dashboard');
 import { jwtSecret } from './config';
+
+import index from './routes/index';
+import users from './routes/users';
+import dashboard from './routes/dashboard';
+import admin from './routes/admin';
+
 
 
 
@@ -57,6 +61,8 @@ app.use(expressValidator({
 
 app.use(cookieParser(jwtSecret));
 
+app.use(multer({dest: 'src/uploads'}).any());
+
 app.use(flash());
 app.use(function(req, res, next) {
   res.locals.messages = require('express-messages')(req, res);
@@ -73,6 +79,7 @@ app.get('*', function(req, res, next) {
 app.use('/', index);
 app.use('/users', users);
 app.use('/dashboard', dashboard);
+app.use('/admin', admin);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -7,7 +7,7 @@ const router = express.Router();
 const LocalStrategy = require('passport-local').Strategy;
 
 import { createUser, isExistUser, getUserByEmail, getUserById, comparePassword, resetPasswordToken } from '../models/user';
-import { emailConfig, domainConfig, jwtSecret } from '../config';
+import { emailConfig, domainConfig, jwtSecret, admin } from '../config';
 
 
 
@@ -100,11 +100,11 @@ router.post('/signup', function(req, res) {
 
 
 // Login
-passport.serializeUser(function(user, done) {
+passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
-passport.deserializeUser(function(id, done) {
+passport.deserializeUser((id, done) => {
   getUserById(id, user => {
     done(null, user);
   });
@@ -121,7 +121,7 @@ passport.use(new LocalStrategy({
 				console.log('Unknown User');
 				return done(null, false, { message: 'Invalid email or password' });
 			}
-			comparePassword(password, user.password, function(err, isMatch) {
+			comparePassword(password, user.password, (err, isMatch) => {
 				if(err) console.log(err);
 				if(isMatch) {
           if(!user.active) {
@@ -142,7 +142,7 @@ passport.use(new LocalStrategy({
 ));
 
 
-router.get('/login', function(req, res, next) {
+router.get('/login', (req, res, next) => {
 
   res.render('users/login', {
     title: 'Log In'
@@ -152,16 +152,19 @@ router.get('/login', function(req, res, next) {
 router.post('/login', passport.authenticate('local', {
   	failureRedirect: '/users/login',
     failureFlash: true
-  }), function(req, res) {
+  }), (req, res) => {
 	console.log('Authentication Successful');
-
-  console.log(req.body);
 
   // var hour = 3600000;
   // req.session.cookie.expires = new Date(Date.now() + hour);
   // req.session.cookie.maxAge = hour;
 
-	res.redirect('/results_table');
+  if(req.user.email === admin.email) {
+    res.redirect('/admin');
+  } else {
+    res.redirect('/results_table');
+  }
+
 });
 
 
@@ -191,7 +194,7 @@ router.post('/resetpassword', (req, res) => {
 
     } else {
       getUserByEmail(email, user => {
-        
+
         if(!user) {
           req.flash('error', 'Email not found');
           res.redirect('/users/resetpassword');
@@ -259,4 +262,4 @@ router.get('/reset_password_sent', function(req, res, next) {
 
 
 
-module.exports = router;
+export default router;

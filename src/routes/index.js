@@ -4,7 +4,7 @@ import nodemailer from 'nodemailer';
 const router = express.Router();
 import { getUserByTemporaryToken, activateAccount, getUserByResetToken, resetPasswordByToken } from '../models/user';
 import { jwtSecret, emailConfig } from '../config';
-import { ensureAuthenticated } from '../common/authGuard';
+import { ensureAuthenticated, ensureAdmin } from '../common/authGuard';
 
 
 var mailTransporter = nodemailer.createTransport({
@@ -142,29 +142,30 @@ router.post('/savepassword', (req, res) => {
   });
 });
 
-router.get('/logout', function(req, res) {
+router.get('/logout', (req, res) => {
 	req.logout();
 	res.redirect('/users/login');
 });
 
 
 
-router.get('/results_table', ensureAuthenticated, function(req, res) {
+router.get('/results_table', ensureAuthenticated, (req, res) => {
   res.render('index/results_table', {title: 'Result'});
 });
 
-router.get('/about', function(req, res) {
+
+router.get('/about', (req, res) => {
   res.render('index/about', {title: 'About'});
 });
 
-router.get('/terms_of_service', function(req, res) {
+router.get('/terms_of_service', (req, res) => {
   res.render('index/terms_of_service', {title: 'Terms of service'});
 });
 
-router.get('/privacy_policy', function(req, res) {
+router.get('/privacy_policy', (req, res) => {
   res.render('index/privacy_policy', {title: 'Privacy Policy'});
 });
 
 
 
-module.exports = router;
+export default router;

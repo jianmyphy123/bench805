@@ -1,0 +1,107 @@
+extends ../layout
+
+block content
+
+  .padding_top_header
+    // Result
+    div(style='overflow: auto')
+      table(style='width: 10000px;')
+        thead
+          tr
+            th No
+            th Buyer
+            th Buyer Ticker
+            th Target
+            th Major Industry
+            th Segment Industry
+            th Transaction Type
+            th Business Description [Target/Issuer]
+            th Total Consideration
+            th Net Asset (SEC)
+            th Net Asset, Net of Cash (SEC)
+            th Contingent Consideration
+            th Goodwill Value
+            th Inventory
+            th PP&E
+            th #1 Name (10K)
+            th #1 Name (Rename)
+            th #1 Value
+            th #1 Life (yrs)
+            th #2 Name (10K)
+            th #1 Value
+            th #1 Life (yrs)
+            th #2 Name (10K)
+            th #2 Name (Rename)
+            th #2 Value
+            th #2 Life (yrs)
+            th #3 Name
+            th #3 Name (Rename)
+            th #3 Value
+            th #3 Life (yrs)
+            th #4 Name
+            th #4 Name (Rename)
+            th #4 Value
+            th #4 Life (yrs)
+            th #5 Name
+            th #5 Name (Rename)
+            th #5 Value
+            th #5 Life (yrs)
+            th #6 Name
+            th #6 Name (Rename)
+            th #6 Value
+            th #6 Life (yrs)
+            th Other 1
+            th Other 2
+            th Other 3
+            th SEC Link
+            th B805 TransactionID
+            th PPA Status
+        tbody
+
+          if tabledata
+            each row, i in tabledata
+              tr
+                td #{i+1}
+                td #{row.col1}
+                td #{row.col2}
+                td #{row.col3}
+                td #{row.col5}
+                td #{row.col6}
+                td #{row.col7}
+                td #{row.col8}
+                td #{row.col9}
+                td #{row.col10}
+                td #{row.col11}
+                td #{row.col12}
+                td #{row.col13}
+                td #{row.col14}
+                td #{row.col15}
+                td #{row.col16}
+                td #{row.col17}
+                td #{row.col18}
+                td #{row.col19}
+                td #{row.col20}
+                td #{row.col21}
+                td #{row.col22}
+                td #{row.col23}
+                td #{row.col24}
+                td #{row.col25}
+                td #{row.col26}
+                td #{row.col27}
+                td #{row.col28}
+                td #{row.col29}
+                td #{row.col30}
+                td #{row.col31}
+                td #{row.col32}
+                td #{row.col33}
+                td #{row.col34}
+                td #{row.col35}
+                td #{row.col36}
+                td #{row.col37}
+                td #{row.col38}
+                td #{row.col39}
+                td #{row.col41}
+                td #{row.col42}
+                td #{row.col43}
+                td #{row.col44}
+                td #{row.col45}
