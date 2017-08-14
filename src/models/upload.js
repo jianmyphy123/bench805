@@ -30,42 +30,42 @@ export const createTable = (rows, callback) => {
         col1 varchar(64) DEFAULT NULL,
         col2 varchar(64) DEFAULT NULL,
         col3 varchar(64) DEFAULT NULL,
-        col4 date DEFAULT NULL,
+        col4 varchar(64) DEFAULT NULL,
         col5 varchar(64) DEFAULT NULL,
         col6 varchar(64) DEFAULT NULL,
         col7 varchar(64) DEFAULT NULL,
         col8 text DEFAULT NULL,
-        col9 float DEFAULT NULL,
-        col10 float DEFAULT NULL,
-        col11 float DEFAULT NULL,
-        col12 float DEFAULT NULL,
-        col13 float DEFAULT NULL,
-        col14 float DEFAULT NULL,
-        col15 float DEFAULT NULL,
+        col9 varchar(64) DEFAULT NULL,
+        col10 varchar(64) DEFAULT NULL,
+        col11 varchar(64) DEFAULT NULL,
+        col12 varchar(64) DEFAULT NULL,
+        col13 varchar(64) DEFAULT NULL,
+        col14 varchar(64) DEFAULT NULL,
+        col15 varchar(64) DEFAULT NULL,
         col16 varchar(64) DEFAULT NULL,
         col17 varchar(64) DEFAULT NULL,
-        col18 float DEFAULT NULL,
-        col19 float DEFAULT NULL,
+        col18 varchar(64) DEFAULT NULL,
+        col19 varchar(64) DEFAULT NULL,
         col20 varchar(64) DEFAULT NULL,
         col21 varchar(64) DEFAULT NULL,
-        col22 float DEFAULT NULL,
-        col23 float DEFAULT NULL,
+        col22 varchar(64) DEFAULT NULL,
+        col23 varchar(64) DEFAULT NULL,
         col24 varchar(64) DEFAULT NULL,
         col25 varchar(64) DEFAULT NULL,
-        col26 float DEFAULT NULL,
-        col27 float DEFAULT NULL,
+        col26 varchar(64) DEFAULT NULL,
+        col27 varchar(64) DEFAULT NULL,
         col28 varchar(64) DEFAULT NULL,
         col29 varchar(64) DEFAULT NULL,
-        col30 float DEFAULT NULL,
-        col31 float DEFAULT NULL,
+        col30 varchar(64) DEFAULT NULL,
+        col31 varchar(64) DEFAULT NULL,
         col32 varchar(64) DEFAULT NULL,
         col33 varchar(64) DEFAULT NULL,
-        col34 float DEFAULT NULL,
-        col35 float DEFAULT NULL,
+        col34 varchar(64) DEFAULT NULL,
+        col35 varchar(64) DEFAULT NULL,
         col36 varchar(64) DEFAULT NULL,
         col37 varchar(64) DEFAULT NULL,
-        col38 float DEFAULT NULL,
-        col39 float DEFAULT NULL,
+        col38 varchar(64) DEFAULT NULL,
+        col39 varchar(64) DEFAULT NULL,
         col40 varchar(64) DEFAULT NULL,
         col41 varchar(64) DEFAULT NULL,
         col42 varchar(64) DEFAULT NULL,
@@ -96,12 +96,7 @@ const insertData = (rows, callback) => {
     return callback();
   }
 
-
-
   let row = rows.shift();
-
-
-
 
   runSql(row, () => {
     insertData(rows, callback);
@@ -122,30 +117,7 @@ export const convertRow = (row) => {
     }
     val = val.trim();
 
-    if(val === 'na' || val === '-') {
-      data.push("'"+"'");
-      continue;
-    }
-
     switch(i) {
-      case 9:
-      case 10:
-      case 11:
-      case 12:
-      case 13:
-      case 14:
-      case 15:
-      case 18:
-      case 19:
-      case 22:
-      case 23:
-      case 26:
-      case 27:
-      case 30:
-      case 31:
-      case 34:
-      case 35:
-      case 38:
       case 39:
         val = val.replace(/\,/g,'');
 
@@ -188,12 +160,6 @@ const runSql = (row, callback) => {
     sql += ') values (';
 
     sql += row.toString() + ')';
-
-
-
-    if(row[0] == 'Lime Energy Co. (OTCPK:LIME)') {
-      console.log(sql);
-    }
 
 
     connection.query(sql, (err, results) => {
