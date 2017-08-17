@@ -1681,7 +1681,8 @@
 .drop_down_box.active .drop_down_body {
     -webkit-box-shadow: 2px 0 8px 0 rgba(0, 0, 0, .08);
     -moz-box-shadow: 2px 0 8px 0 rgba(0, 0, 0, .08);
-    box-shadow: 2px 0 8px 0 rgba(0, 0, 0, .08)
+    box-shadow: 2px 0 8px 0 rgba(0, 0, 0, .08);
+    z-index: 100;
 }
 
 .drop_down_head {
@@ -1989,7 +1990,8 @@
 .form_style_1 sup {
     font-size: 16px;
     font-weight: 300;
-    color: #a5adb8
+    color: #a5adb8;
+    height: auto;
 }
 
 .form_footer {

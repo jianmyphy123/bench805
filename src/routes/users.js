@@ -162,7 +162,7 @@ router.post('/login', passport.authenticate('local', {
   if(req.user.email === admin.email) {
     res.redirect('/admin');
   } else {
-    res.redirect('/results_table');
+    res.redirect('/dashboard');
   }
 
 });

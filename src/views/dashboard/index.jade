@@ -1,6 +1,414 @@
 extends ../layout
 
 block content
+  script.
+    $(function() {
+
+      var checkedids = '#{checkedids}';
+      if(checkedids != '') {
+        checkedidsArr = checkedids.split(',');
+        for(var i=0; i<checkedidsArr.length; i++) {
+          var check = document.getElementById(checkedidsArr[i]);
+          $(check).attr('checked', true);
+          checkHandler(check);
+        }
+      }
+
+      $('#id18').val('#{keyword1}');
+      $('#id19').val('#{keyword2}');
+
+      $('.drop_down_box input[type=checkbox]').change(function() {
+
+        checkHandler(this);
+        getCheckedIDs();
+
+      });
+
+      function getCheckedIDs() {
+        var checklist = $('.drop_down_box').find('input[type=checkbox]:checked');
+        var idsArr = [];
+        for(var i=0; i<checklist.length; i++)
+          idsArr.push($(checklist[i]).attr('id'));
+
+        $('input#checkedids').val(idsArr.toString());
+      }
+
+      function checkHandler(element) {
+        var ch_numb = 0;
+        ch_numb = $(element).parent().parent().find('input[type=checkbox]:checked').length;
+
+        $(element).parents().closest('.drop_down_box').find('.drop_down_head span').text("("+ch_numb+")");
+
+        var dropboxid = $(element).parents().closest('.drop_down_box').attr('id');
+
+        if(dropboxid == 'singleselect') {
+          if(ch_numb == 1)
+            disableUnchecked(element);
+          else
+            enableUnchecked(element);
+        } else {
+          if(ch_numb == 2)
+            disableUnchecked(element);
+          else
+            enableUnchecked(element);
+        }
+      }
+
+      function disableUnchecked(div) {
+        var uncheckedList = $(div).parent().parent().find('input[type=checkbox]:not(:checked)');
+        for(var i=0; i<uncheckedList.length; i++) {
+          uncheckedList[i].disabled = true;
+        }
+      }
+      function enableUnchecked(div) {
+        var mylist =  $(div).parent().parent().find('input[type=checkbox]');
+        for(var i=0; i<mylist.length; i++) {
+          mylist[i].disabled = false;
+        }
+      }
+
+      $('.drop_down_head').on('click', function() {
+
+        var curdropbox = $(this).parent('.drop_down_box');
+
+        var dropboxlist = $('.drop_down_box');
+
+        for(var i=0; i<dropboxlist.length; i++) {
+          if(curdropbox.is(dropboxlist[i]))
+            $(curdropbox).toggleClass('active');
+          else {
+            $(dropboxlist[i]).removeClass('active');
+          }
+        }
+
+      });
+
+    });
+
+
 
   .page_body.padding_top_header
-    h1 Welcome to bench805.com
+    // Result
+    section.result_table_section
+      .padding_lr.stretch.clrfx
+        .filters_box.scrolly_box
+          form.form_style_1(action='/dashboard', method='post')
+
+            input#checkedids(name='checkedids', type='hidden', value='')
+
+            div
+              label.label_top(for='') Select Industries
+              .drop_down_box#threeselect
+                .drop_down_head
+                  div
+                    label Select Industries
+                    span.ch_numb (0)
+                .drop_down_body
+                  ul.radio_checkbox_container
+                    li
+                      input#id1(type='checkbox', name='industries[]', value='Biotechnology')
+                      label(for='id1') Biotechnology
+                    li
+                      input#id2(type='checkbox', name='industries[]', value='Medical Devices')
+                      label(for='id2') Medical Devices
+                    li
+                      input#id3(type='checkbox', name='industries[]', value='Medical Equipment and Supplies')
+                      label(for='id3') Medical Equipment and Supplies
+                    li
+                      input#id4(type='checkbox', name='industries[]', value='Medical Facilities')
+                      label(for='id4') Medical Facilities
+                    li
+                      input#id5(type='checkbox', name='industries[]', value='Medical Research Equipment, Other')
+                      label(for='id5') Medical Research Equipment, Other
+                    li
+                      input#id6(type='checkbox', name='industries[]', value='Medical Services and Distributors')
+                      label(for='id6') Medical Services and Distributors
+                    li
+                      input#id7(type='checkbox', name='industries[]', value='Pharmaceuticals')
+                      label(for='id7') Pharmaceuticals
+                    li
+                      input#id8(type='checkbox', name='industries[]', value='Communications Equipment')
+                      label(for='id8') Communications Equipment
+                    li
+                      input#id9(type='checkbox', name='industries[]', value='eCommerce')
+                      label(for='id9') eCommerce
+                    li
+                      input#id10(type='checkbox', name='industries[]', value='Electronic Equipment and Other')
+                      label(for='id10') Electronic Equipment and Other
+                    li
+                      input#id11(type='checkbox', name='industries[]', value='IT Consulting, Outsourcing, Other')
+                      label(for='id11') IT Consulting, Outsourcing, Other
+                    li
+                      input#id12(type='checkbox', name='industries[]', value='IT Hardware')
+                      label(for='id12') IT Hardware
+                    li
+                      input#id13(type='checkbox', name='industries[]', value='Semiconductors and Equipment')
+                      label(for='id13') Semiconductors and Equipment
+                    li
+                      input#id14(type='checkbox', name='industries[]', value='Software')
+                      label(for='id14') Software
+                    li
+                      input#id15(type='checkbox', name='industries[]', value='Technology Distribution')
+                      label(for='id15') Technology Distribution
+                    li
+                      input#id16(type='checkbox', name='industries[]', value='ALL')
+                      label(for='id16') ALL
+                    li
+                      input#id17(type='checkbox', name='industries[]', value='NA')
+                      label(for='id17') NA
+            div
+
+              label.label_top(for='') Keyword
+              .drop_down_box
+                .drop_down_head
+                  div
+                    label Keyword
+                .drop_down_body
+                  ul.radio_checkbox_container
+                    li
+                      input#id18(type='text', name='keyword[]')
+                    li
+                      input#id19(type='text', name='keyword[]')
+
+
+            div
+              label.label_top(for='include') Intangibles to Include
+
+              .drop_down_box
+                .drop_down_head
+                  div
+                    label Intangibles to Include
+                    span.ch_numb (0)
+                .drop_down_body
+                  ul.radio_checkbox_container
+                    li
+                      input#id20(type='checkbox', name='include[]', value='Developed Technology')
+                      label(for='id20') Developed Technology
+                    li
+                      input#id21(type='checkbox', name='include[]', value='In-Process R&D')
+                      label(for='id21') In-Process R&D
+                    li
+                      input#id22(type='checkbox', name='include[]', value='Customer Relationships')
+                      label(for='id22') Customer Relationships
+                    li
+                      input#id23(type='checkbox', name='include[]', value='Trade Name')
+                      label(for='id23') Trade Name
+                    li
+                      input#id24(type='checkbox', name='include[]', value='Backlog')
+                      label(for='id24') Backlog
+                    li
+                      input#id25(type='checkbox', name='include[]', value='Non-Compete Agreement')
+                      label(for='id25') Non-Compete Agreement
+                    li
+                      input#id26(type='checkbox', name='include[]', value='NA')
+                      label(for='id26') NA
+            div
+
+              .drop_down_box#singleselect
+                .drop_down_head
+                  div
+                    label Intangibles to Exclude
+                    span.ch_numb (0)
+                .drop_down_body
+                  ul.radio_checkbox_container
+                    li
+                      input#id27(type='checkbox', name='exclude[]', value='Developed Technology')
+                      label(for='id27') Developed Technology
+                    li
+                      input#id28(type='checkbox', name='exclude[]', value='In-Process R&D')
+                      label(for='id28') In-Process R&D
+                    li
+                      input#id29(type='checkbox', name='exclude[]', value='Customer Relationships')
+                      label(for='id29') Customer Relationships
+                    li
+                      input#id30(type='checkbox', name='exclude[]', value='Trade Name')
+                      label(for='id30') Trade Name
+                    li
+                      input#id31(type='checkbox', name='exclude[]', value='Backlog')
+                      label(for='id31') Backlog
+                    li
+                      input#id32(type='checkbox', name='exclude[]', value='Non-Compete Agreement')
+                      label(for='id32') Non-Compete Agreement
+                    li
+                      input#id33(type='checkbox', name='exclude[]', value='NA')
+                      label(for='id33') NA
+
+
+            .form_footer
+              //
+                div.form_footer_info.fs_13
+                  Please select industries,  intangible assets to include and/or exclude, and keywords.
+
+              .form_footer_btns
+                button#tabe_filters_apply(type='submit') Go
+
+        // RESPONSIVE TABLE
+        .responsive_table.tabs.mobile_table(style='min-height: 338px;')
+          .tabs_list.clrfx
+            .tab_btn_1.active ALLOCATION
+            .tab_btn_3 USEFULL LIVES
+            .tab_btn_2 AVAILABLE DATAPOINTS
+
+          .tabs_content
+            div
+              .tr_name Business Combinations
+              .tabs_box
+                .tab_1.active(style='width: 100%;')
+                  div(style='width: 33.3333%;') Purchase Consideration
+                  div(style='width: 33.3333%;') Net Assets
+                  div(style='width: 33.3333%;') Excess Consideration
+                .tab_3(style='width: 100%; display: none;')
+                  div(style='width: 25%;') Median
+                  div(style='width: 25%;') Standard Deviation
+                  div(style='width: 25%;') Datapoints (Finite Life)
+                  div(style='width: 25%;') Datapoints (Indefinite Life)
+                .tab_2(style='width: 100%; display: none;')
+                  div(style='width: 25%;') Purchase Consideration
+                  div(style='width: 25%;') Net Assets
+                  div(style='width: 25%;') Excess Consideration
+                  div(style='width: 25%;') Total In This Industry
+            if tabledata
+              div
+                .tr_name Inventory
+                .tabs_box
+                  .tab_1.active(style='width: 100%;')
+                    div(style='width: 33.3333%;') #{tabledata['26_4'] ? tabledata['26_4'] : 0}
+                    div(style='width: 33.3333%;') #{tabledata['26_5'] ? tabledata['26_5'] : 0}
+                    div(style='width: 33.3333%;') #{tabledata['26_7'] ? tabledata['26_7'] : 0}
+                  .tab_3(style='width: 100%; display: none;')
+                    div(style='width: 100%;') na
+                  .tab_2(style='width: 100%; display: none;')
+                    div(style='width: 25%;') #{tabledata['26_14'] ? tabledata['26_14'] : 0}
+                    div(style='width: 25%;') #{tabledata['26_15'] ? tabledata['26_15'] : 0}
+                    div(style='width: 25%;') #{tabledata['26_17'] ? tabledata['26_17'] : 0}
+                    div(style='width: 25%;') #{tabledata['26_18'] ? tabledata['26_18'] : 0}
+              div
+                .tr_name Property, Plant and Equipment
+                .tabs_box
+                  .tab_1.active(style='width: 100%;')
+                    div(style='width: 33.3333%;') #{tabledata['27_4'] ? tabledata['27_4'] : 0}
+                    div(style='width: 33.3333%;') #{tabledata['27_5'] ? tabledata['27_5'] : 0}
+                    div(style='width: 33.3333%;') #{tabledata['27_7'] ? tabledata['27_7'] : 0}
+                  .tab_3(style='width: 100%; display: none;')
+                    div(style='width: 100%;') na
+                  .tab_2(style='width: 100%; display: none;')
+                    div(style='width: 25%;') #{tabledata['27_14'] ? tabledata['27_14'] : 0}
+                    div(style='width: 25%;') #{tabledata['27_15'] ? tabledata['27_15'] : 0}
+                    div(style='width: 25%;') #{tabledata['27_17'] ? tabledata['27_17'] : 0}
+                    div(style='width: 25%;') #{tabledata['27_18'] ? tabledata['27_18'] : 0}
+              div
+                .tr_name Goodwill
+                .tabs_box
+                  .tab_1.active(style='width: 100%;')
+                    div(style='width: 33.3333%;') #{tabledata['17_4'] ? tabledata['17_4'] : 0}
+                    div(style='width: 33.3333%;') #{tabledata['17_5'] ? tabledata['17_5'] : 0}
+                    div(style='width: 33.3333%;') #{tabledata['17_7'] ? tabledata['17_7'] : 0}
+                  .tab_3(style='width: 100%; display: none;')
+                    div(style='width: 100%;') Indefinite
+                  .tab_2(style='width: 100%; display: none;')
+                    div(style='width: 25%;') #{tabledata['17_14'] ? tabledata['17_14'] : 0}
+                    div(style='width: 25%;') #{tabledata['17_15'] ? tabledata['17_15'] : 0}
+                    div(style='width: 25%;') #{tabledata['17_17'] ? tabledata['17_17'] : 0}
+                    div(style='width: 25%;') #{tabledata['17_18'] ? tabledata['17_18'] : 0}
+              div
+                .tr_name Developed Technology
+                .tabs_box
+                  .tab_1.active(style='width: 100%;')
+                    div(style='width: 33.3333%;') #{tabledata['18_4'] ? tabledata['18_4'] : 0}
+                    div(style='width: 33.3333%;') #{tabledata['18_5'] ? tabledata['18_5'] : 0}
+                    div(style='width: 33.3333%;') #{tabledata['18_7'] ? tabledata['18_7'] : 0}
+                  .tab_3(style='width: 100%; display: none;')
+                    div(style='width: 25%;') #{tabledata['18_20'] ? tabledata['18_20'] : 0}
+                    div(style='width: 25%;') #{tabledata['18_21'] ? tabledata['18_21'] : 0}
+                    div(style='width: 25%;') #{tabledata['18_22'] ? tabledata['18_22'] : 0}
+                    div(style='width: 25%;') #{tabledata['18_23'] ? tabledata['18_23'] : 0}
+                  .tab_2(style='width: 100%; display: none;')
+                    div(style='width: 25%;') #{tabledata['18_14'] ? tabledata['18_14'] : 0}
+                    div(style='width: 25%;') #{tabledata['18_15'] ? tabledata['18_15'] : 0}
+                    div(style='width: 25%;') #{tabledata['18_17'] ? tabledata['18_17'] : 0}
+                    div(style='width: 25%;') #{tabledata['18_18'] ? tabledata['18_18'] : 0}
+              div
+                .tr_name In-Process R&D
+                .tabs_box
+                  .tab_1.active(style='width: 100%;')
+                    div(style='width: 33.3333%;') #{tabledata['19_4'] ? tabledata['19_4'] : 0}
+                    div(style='width: 33.3333%;') #{tabledata['19_5'] ? tabledata['19_5'] : 0}
+                    div(style='width: 33.3333%;') #{tabledata['19_7'] ? tabledata['19_7'] : 0}
+                  .tab_3(style='width: 100%; display: none;')
+                    div(style='width: 25%;') #{tabledata['19_20'] ? tabledata['19_20'] : 0}
+                    div(style='width: 25%;') #{tabledata['19_21'] ? tabledata['19_21'] : 0}
+                    div(style='width: 25%;') #{tabledata['19_22'] ? tabledata['19_22'] : 0}
+                    div(style='width: 25%;') #{tabledata['19_23'] ? tabledata['19_23'] : 0}
+                  .tab_2(style='width: 100%; display: none;')
+                    div(style='width: 25%;') #{tabledata['19_14'] ? tabledata['19_14'] : 0}
+                    div(style='width: 25%;') #{tabledata['19_15'] ? tabledata['19_15'] : 0}
+                    div(style='width: 25%;') #{tabledata['19_17'] ? tabledata['19_17'] : 0}
+                    div(style='width: 25%;') #{tabledata['19_18'] ? tabledata['19_18'] : 0}
+              div
+                .tr_name Customer Relationships
+                .tabs_box
+                  .tab_1.active(style='width: 100%;')
+                    div(style='width: 33.3333%;') #{tabledata['20_4'] ? tabledata['20_4'] : 0}
+                    div(style='width: 33.3333%;') #{tabledata['20_5'] ? tabledata['20_5'] : 0}
+                    div(style='width: 33.3333%;') #{tabledata['20_7'] ? tabledata['20_7'] : 0}
+                  .tab_3(style='width: 100%; display: none;')
+                    div(style='width: 25%;') #{tabledata['20_20'] ? tabledata['20_20'] : 0}
+                    div(style='width: 25%;') #{tabledata['20_21'] ? tabledata['20_21'] : 0}
+                    div(style='width: 25%;') #{tabledata['20_22'] ? tabledata['20_22'] : 0}
+                    div(style='width: 25%;') #{tabledata['20_23'] ? tabledata['20_23'] : 0}
+                  .tab_2(style='width: 100%; display: none;')
+                    div(style='width: 25%;') #{tabledata['20_14'] ? tabledata['20_14'] : 0}
+                    div(style='width: 25%;') #{tabledata['20_15'] ? tabledata['20_15'] : 0}
+                    div(style='width: 25%;') #{tabledata['20_17'] ? tabledata['20_17'] : 0}
+                    div(style='width: 25%;') #{tabledata['20_18'] ? tabledata['20_18'] : 0}
+              div
+                .tr_name Trade Name
+                .tabs_box
+                  .tab_1.active(style='width: 100%;')
+                    div(style='width: 33.3333%;') #{tabledata['21_4'] ? tabledata['21_4'] : 0}
+                    div(style='width: 33.3333%;') #{tabledata['21_5'] ? tabledata['21_5'] : 0}
+                    div(style='width: 33.3333%;') #{tabledata['21_7'] ? tabledata['21_7'] : 0}
+                  .tab_3(style='width: 100%; display: none;')
+                    div(style='width: 25%;') #{tabledata['21_20'] ? tabledata['21_20'] : 0}
+                    div(style='width: 25%;') #{tabledata['21_21'] ? tabledata['21_21'] : 0}
+                    div(style='width: 25%;') #{tabledata['21_22'] ? tabledata['21_22'] : 0}
+                    div(style='width: 25%;') #{tabledata['21_23'] ? tabledata['21_23'] : 0}
+                  .tab_2(style='width: 100%; display: none;')
+                    div(style='width: 25%;') #{tabledata['21_14'] ? tabledata['21_14'] : 0}
+                    div(style='width: 25%;') #{tabledata['21_15'] ? tabledata['21_15'] : 0}
+                    div(style='width: 25%;') #{tabledata['21_17'] ? tabledata['21_17'] : 0}
+                    div(style='width: 25%;') #{tabledata['21_18'] ? tabledata['21_18'] : 0}
+              div
+                .tr_name Backlog
+                .tabs_box
+                  .tab_1.active(style='width: 100%;')
+                    div(style='width: 33.3333%;') #{tabledata['22_4'] ? tabledata['22_4'] : 0}
+                    div(style='width: 33.3333%;') #{tabledata['22_5'] ? tabledata['22_5'] : 0}
+                    div(style='width: 33.3333%;') #{tabledata['22_7'] ? tabledata['22_7'] : 0}
+                  .tab_3(style='width: 100%; display: none;')
+                    div(style='width: 25%;') #{tabledata['22_20'] ? tabledata['22_20'] : 0}
+                    div(style='width: 25%;') #{tabledata['22_21'] ? tabledata['22_21'] : 0}
+                    div(style='width: 25%;') #{tabledata['22_22'] ? tabledata['22_22'] : 0}
+                    div(style='width: 25%;') #{tabledata['22_23'] ? tabledata['22_23'] : 0}
+                  .tab_2(style='width: 100%; display: none;')
+                    div(style='width: 25%;') #{tabledata['22_14'] ? tabledata['22_14'] : 0}
+                    div(style='width: 25%;') #{tabledata['22_15'] ? tabledata['22_15'] : 0}
+                    div(style='width: 25%;') #{tabledata['22_17'] ? tabledata['22_17'] : 0}
+                    div(style='width: 25%;') #{tabledata['22_18'] ? tabledata['22_18'] : 0}
+              div
+                .tr_name Non-Compete Agreement
+                .tabs_box
+                  .tab_1.active(style='width: 100%;')
+                    div(style='width: 33.3333%;') #{tabledata['23_4'] ? tabledata['23_4'] : 0}
+                    div(style='width: 33.3333%;') #{tabledata['23_5'] ? tabledata['23_5'] : 0}
+                    div(style='width: 33.3333%;') #{tabledata['23_7'] ? tabledata['23_7'] : 0}
+                  .tab_3(style='width: 100%; display: none;')
+                    div(style='width: 25%;') #{tabledata['23_20'] ? tabledata['23_20'] : 0}
+                    div(style='width: 25%;') #{tabledata['23_21'] ? tabledata['23_21'] : 0}
+                    div(style='width: 25%;') #{tabledata['23_22'] ? tabledata['23_22'] : 0}
+                    div(style='width: 25%;') #{tabledata['23_23'] ? tabledata['23_23'] : 0}
+                  .tab_2(style='width: 100%; display: none;')
+                    div(style='width: 25%;') #{tabledata['23_14'] ? tabledata['23_14'] : 0}
+                    div(style='width: 25%;') #{tabledata['23_15'] ? tabledata['23_15'] : 0}
+                    div(style='width: 25%;') #{tabledata['23_17'] ? tabledata['23_17'] : 0}
+                    div(style='width: 25%;') #{tabledata['23_18'] ? tabledata['23_18'] : 0}

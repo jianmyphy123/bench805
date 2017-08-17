@@ -1646,12 +1646,14 @@ export default StyleSheet.create({
     "drop_down_boxactive": {
         "WebkitBoxShadow": "2px 0 8px 0 rgba(0, 0, 0, .08)",
         "MozBoxShadow": "2px 0 8px 0 rgba(0, 0, 0, .08)",
-        "boxShadow": "2px 0 8px 0 rgba(0, 0, 0, .08)"
+        "boxShadow": "2px 0 8px 0 rgba(0, 0, 0, .08)",
+        "zIndex": 100
     },
     "drop_down_boxactive drop_down_body": {
         "WebkitBoxShadow": "2px 0 8px 0 rgba(0, 0, 0, .08)",
         "MozBoxShadow": "2px 0 8px 0 rgba(0, 0, 0, .08)",
-        "boxShadow": "2px 0 8px 0 rgba(0, 0, 0, .08)"
+        "boxShadow": "2px 0 8px 0 rgba(0, 0, 0, .08)",
+        "zIndex": 100
     },
     "drop_down_head": {
         "minHeight": 40,
@@ -1932,7 +1934,8 @@ export default StyleSheet.create({
     "form_style_1 sup": {
         "fontSize": 16,
         "fontWeight": "300",
-        "color": "#a5adb8"
+        "color": "#a5adb8",
+        "height": "auto"
     },
     "form_footer": {
         "width": "100%",

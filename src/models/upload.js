@@ -69,13 +69,20 @@ export const createTable = (rows, callback) => {
         col40 varchar(64) DEFAULT NULL,
         col41 varchar(64) DEFAULT NULL,
         col42 varchar(64) DEFAULT NULL,
-        col43 varchar(64) DEFAULT NULL,
+        col43 varchar(150) DEFAULT NULL,
         col44 varchar(64) DEFAULT NULL,
         col45 varchar(64) DEFAULT NULL,
 
         PRIMARY KEY (id)
       ) ENGINE=InnoDB DEFAULT CHARSET=latin1`, (err, results) => {
 
+				let headerRow = {};
+
+				for(let i=1; i<=45; i++) {
+					headerRow[i.toString()] = i.toString();
+				}
+
+				rows.unshift(headerRow);
 
         insertData(rows, () => {
           callback();
@@ -115,9 +122,31 @@ export const convertRow = (row) => {
       data.push("'"+"'");
       continue;
     }
+
     val = val.trim();
 
+		if(val == '-')
+			val = '0';
+
     switch(i) {
+			case 9:
+			case 10:
+			case 11:
+			case 12:
+			case 13:
+			case 14:
+			case 15:
+			case 18:
+			case 19:
+			case 22:
+			case 23:
+			case 26:
+			case 27:
+			case 30:
+			case 31:
+			case 34:
+			case 35:
+			case 38:
       case 39:
         val = val.replace(/\,/g,'');
 
@@ -126,6 +155,7 @@ export const convertRow = (row) => {
         data.push('"'+val+'"');
         break;
       default:
+
         data.push('"'+val+'"');
         break;
     }

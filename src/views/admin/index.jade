@@ -11,10 +11,7 @@ block content
 
             div.fileuploadbox
 
-              ul.error
-                if errors
-                  each error, i in errors
-                    li #{error.msg}
+              != messages()
 
               input(type='file', name='file', class='inputfile inputfile-6', id='file')
               label(for='file')
@@ -32,7 +29,4 @@ block content
 
               input.btn-submit(type='submit', value='Upload')
 
-              br
-              br
-
-              a.btn-submit(href='/admin/viewtable') View Table
+              

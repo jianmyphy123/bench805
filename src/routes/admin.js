@@ -8,13 +8,15 @@ import { createTable, fetchTableData } from '../models/upload';
 router.get('/', ensureAdmin, (req, res) => {
 
   res.render('admin/index', {title: 'Admin'});
+  
 });
 
 router.post('/upload', (req, res) => {
 
   if(req.files == undefined || req.files == null || req.files.length == 0) {
 
-    res.render('admin/index', { errors: [{msg: 'Please select file to upload'}], title: 'Admin' });
+    req.flash('error', 'Please select file to upload');
+    res.redirect('/admin');
 
   } else {
 
@@ -31,18 +33,22 @@ router.post('/upload', (req, res) => {
     const sheet = workbook.Sheets.MAIN;
 
     if(sheet == undefined || sheet == null) {
-      res.render('admin/index', { errors: [{msg: 'This file is not correct. Please try again.'}], title: 'Admin' });
+
+      req.flash('error', 'This file is not correct. Please try again.');
+      res.redirect('/admin');
+
     } else {
       const rows = XLSX.utils.sheet_to_json(sheet);
 
       createTable(rows, () => {
-        res.render('admin/index', { errors: [{msg: 'Successfully Uploaded.'}] });
+
+        req.flash('success', 'Successfully Uploaded.');
+        res.redirect('/admin');
+
       });
     }
 
   }
-
-
 
 });
 

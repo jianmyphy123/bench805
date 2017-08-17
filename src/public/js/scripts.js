@@ -136,26 +136,15 @@ jQuery(document).ready(function(){
 	}
 	*/
 
-	var cells_n = 0, cells_n2 = 0, index = 0;
+
 	function divide_cells() {
+		var cells_n = 0;
+
 		$(".tabs_content > div:first-child > .tabs_box > div:visible").each(function () {
 			cells_n = cells_n + 1;
-			index = index + 1;
-
-			$(this).children("div").each(function () {
-				cells_n2 = cells_n2 + 1;
-			});
-			cells_n2 = 100 / cells_n2 + "%";
-
-			$(".tabs_box .tab_"+index).children("div").css({
-				width: cells_n2
-			});
-			cells_n2 = 0;
 		});
 		cells_n = 100 / cells_n + "%";
 		$(".tabs_content > div > .tabs_box > div").css({width: cells_n});
-		cells_n = 0;
-		index = 0;
 	}
 
 	function  table_responsiv() {
@@ -295,12 +284,14 @@ jQuery(document).ready(function(){
 
 	jQuery(function ($) {
 		$(document).mouseup(function (c) {
+
 			var div = $(".drop_down_box");
 			if (!div.is(c.target)
 				&& div.has(c.target).length === 0 ) {
 				div.removeClass("active");
 			}
 		});
+
 	});
 
 	// FORMS - PLUS\MINUS NUMBER PRODUCT
@@ -320,20 +311,10 @@ jQuery(document).ready(function(){
 
 	// CHECKED NUMBER
 	//===============================================================
-	var ch_numb = 0;
-	$(function() {
-		updateCount();
-		$('.drop_down_box input[type=checkbox]').change(function() {
-			updateCount(this.checked ? 1 : -1);
-		});
-	});
-	function updateCount(a) {
-		ch_numb = a ? ch_numb + a : $('.drop_down_box input[type=checkbox]:checked').length;
-		$('.drop_down_head span').text("("+ch_numb+")");
-	}
-	$('.drop_down_head').on('click', function() {
-		$(this).parent('.drop_down_box').toggleClass('active');
-	});
+
+
+
+
 
 /*
 	var chnumb=0;
