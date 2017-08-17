@@ -5,7 +5,7 @@ import { fetchTableData } from '../models/upload';
 
 
 router.get('/', ensureAuthenticated, (req, res) => {
-  res.render('dashboard/index', { title: 'Dashboard' });
+  res.render('dashboard/index', { title: 'Result' });
 });
 
 
