@@ -1,5 +1,6 @@
 import express from 'express';
 import XLSX from 'xlsx';
+import fs from 'fs';
 const router = express.Router();
 import { ensureAdmin } from '../common/authGuard';
 
@@ -35,6 +36,8 @@ router.post('/upload', (req, res) => {
 
     if(sheet == undefined || sheet == null) {
 
+      fs.unlinkSync(path);
+
       req.flash('error', 'This file is not correct. Please try again.');
       res.redirect('/admin');
       res.location('/admin');
@@ -43,6 +46,8 @@ router.post('/upload', (req, res) => {
       const rows = XLSX.utils.sheet_to_json(sheet);
 
       createTable(rows, () => {
+
+        fs.unlinkSync(path);
 
         req.flash('success', 'Successfully Uploaded.');
         res.redirect('/admin');
