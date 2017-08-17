@@ -71,12 +71,12 @@ app.use(function(req, res, next) {
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('*', function(req, res, next) {
+app.post('*', function(req, res, next) {
   res.locals.user = req.user || null;
   next();
 });
 
-app.post('*', function(req, res, next) {
+app.get('*', function(req, res, next) {
   res.locals.user = req.user || null;
   next();
 });
