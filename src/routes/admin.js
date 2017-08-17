@@ -1,6 +1,7 @@
 import express from 'express';
 import XLSX from 'xlsx';
 import fs from 'fs';
+import path from 'path';
 const router = express.Router();
 import { ensureAdmin } from '../common/authGuard';
 
@@ -18,7 +19,6 @@ router.post('/upload', (req, res) => {
 
     req.flash('error', 'Please select file to upload');
     res.redirect('/admin');
-    res.location('/admin');
 
   } else {
 
@@ -27,32 +27,43 @@ router.post('/upload', (req, res) => {
     let originalname = file.originalname;
     let filename = file.filename;
     let mimetype = file.mimetype;
-    let path = file.path;
+    let filepath = file.path;
     let size = file.size;
 
-    const workbook = XLSX.readFile(path);
+    let ext = path.extname(originalname).toLowerCase();
 
-    const sheet = workbook.Sheets.MAIN;
+    if(ext == '.xlsm' || ext == '.xls' || ext == '.xlsx') {
+      const workbook = XLSX.readFile(filepath);
 
-    if(sheet == undefined || sheet == null) {
+      const sheet = workbook.Sheets.MAIN;
 
-      fs.unlinkSync(path);
+      if(sheet == undefined || sheet == null) {
 
+        fs.unlinkSync(filepath);
+
+        req.flash('error', 'This file is not correct. Please try again.');
+        res.redirect('/admin');
+
+      } else {
+        const rows = XLSX.utils.sheet_to_json(sheet);
+
+        createTable(rows, () => {
+
+          fs.unlinkSync(filepath);
+
+          req.flash('success', 'Successfully Uploaded.');
+          res.redirect('/admin');
+        });
+      }
+    } else {
+
+      fs.unlinkSync(filepath);
+      
       req.flash('error', 'This file is not correct. Please try again.');
       res.redirect('/admin');
-      res.location('/admin');
-
-    } else {
-      const rows = XLSX.utils.sheet_to_json(sheet);
-
-      createTable(rows, () => {
-
-        fs.unlinkSync(path);
-
-        req.flash('success', 'Successfully Uploaded.');
-        res.redirect('/admin');
-      });
     }
+
+
 
   }
 
