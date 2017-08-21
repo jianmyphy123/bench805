@@ -62,8 +62,10 @@ router.post('/', (req, res) => {
             GW++;
           if(Cells(sheetMAIN, 3 + i, 12) != 'na')
             CC++;
-          if(Cells(sheetMAIN, 3 + i, 14) != 'na')
+          if(Cells(sheetMAIN, 3 + i, 14) != 'na') {
             INV++;
+            console.log(3 + i, Cells(sheetMAIN, 3 + i, 14), INV, Industry);
+          }
           if(Cells(sheetMAIN, 3 + i, 15) != 'na')
             PPE++;
         }
@@ -99,6 +101,7 @@ router.post('/', (req, res) => {
         }
 
         i++;
+        Industry = Cells(sheetMAIN, 3 + i, 6);
 
       }
 
@@ -249,6 +252,7 @@ router.post('/', (req, res) => {
         }
 
         i++;
+        Industry = Cells(sheetMAIN, 3 + i, 6);
 
       }
 
