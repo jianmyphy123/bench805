@@ -4,59 +4,11 @@ block content
 
   .page_body.padding_top_header
     section.result_table_section
-      .padding_lr.stretch.clrfx
-        .filters_box.scrolly_box
-          form.form_style_1(action='http://testsite7.evo-studio.net/results_table.html')
-            div
-              label.label_top(for='') Select Industries
-              .drop_down_box
-                .drop_down_head
-                  div
-                    label Select Industries
-                    span.ch_numb (0)
-                .drop_down_body
-                  ul.radio_checkbox_container
-                    li
-                      input#id1(type='checkbox', hidden='')
-                      label(for='id1') Application Software
-                    li
-                      input#id2(type='checkbox', hidden='')
-                      label(for='id2') Systems Software
-                    li
-                      input#id3(type='checkbox', hidden='')
-                      label(for='id3') NA
-                    li
-                      input#id4(type='checkbox', hidden='')
-                      label(for='id4') Other Industry
-                    li
-                      input#id5(type='checkbox', hidden='')
-                      label(for='id5') Application Software
-                    li
-                      input#id6(type='checkbox', hidden='')
-                      label(for='id6') Systems Software
-                    li
-                      input#id7(type='checkbox', hidden='')
-                      label(for='id7') NA
-                    li
-                      input#id8(type='checkbox', hidden='')
-                      label(for='id8') Other Industry
-            div
-              label.label_top(for='') Intangibles to Include
-              input(type='text', placeholder='Intangibles to Include')
-            div
-              label.label_top(for='') Intangibles to Exclude
-              input(type='text', placeholder='Intangibles to Exclude')
-            div
-              label.label_top(for='') Keyword
-              input(type='text', placeholder='Keyword')
-            .form_footer
-              //
-                div class="form_footer_info fs_13">
-                Please select industries,  intangible assets to include and/or exclude, and keywords.
-                </div
-              .form_footer_btns
-                button#tabe_filters_apply(type='button') Go
-        .responsive_table.tabs.mobile_table(style='min-height: 338px; overflow: auto')
+      
+
+
+
+        div(style='min-height: 338px; overflow: auto')
           .tabs_content
             table(style="width: 5000px")
               thead
