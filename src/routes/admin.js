@@ -58,7 +58,7 @@ router.post('/upload', (req, res) => {
     } else {
 
       fs.unlinkSync(filepath);
-      
+
       req.flash('error', 'This file is not correct. Please try again.');
       res.redirect('/admin');
     }
@@ -72,7 +72,7 @@ router.post('/upload', (req, res) => {
 router.get('/viewtable', ensureAdmin, (req, res) => {
 
   fetchTableData((result) => {
-    result.shift();
+    
     res.render('admin/viewtable', { title: 'Admin', tabledata: result });
   });
 

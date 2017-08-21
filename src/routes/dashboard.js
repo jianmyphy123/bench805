@@ -11,7 +11,7 @@ router.get('/', ensureAuthenticated, (req, res) => {
 
 router.post('/', (req, res) => {
 
-  let reqdata = req.body;
+  let reqdata = req.body;console.log(reqdata);
 
   //Calculates Goodwill and Contingenet Consideration, Inventory, PPA
   let Intangible, KeyWord, Industry, Industry1, Industry2, Discr;
@@ -587,12 +587,12 @@ const RightTrans = (reqdata, sheet, Industry, Discr, i) => {
     KeyWord1 = reqdata.keyword[0];
     KeyWord2 = reqdata.keyword[1];
   }
-  if(reqdata.import) {
-    Intangible1 = reqdata.import[0];
-    Intangible2 = reqdata.import[1];
+  if(reqdata.include) {
+    Intangible1 = reqdata.include[0];
+    Intangible2 = reqdata.include[1];
   }
-  if(reqdata.export) {
-    IntangibleX = reqdata.export[0];
+  if(reqdata.exclude) {
+    IntangibleX = reqdata.exclude[0];
   }
 
   retRightTrans = 0;
