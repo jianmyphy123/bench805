@@ -62,10 +62,8 @@ router.post('/', (req, res) => {
             GW++;
           if(Cells(sheetMAIN, 3 + i, 12) != 'na')
             CC++;
-          if(Cells(sheetMAIN, 3 + i, 14) != 'na') {
+          if(Cells(sheetMAIN, 3 + i, 14) != 'na')
             INV++;
-            console.log(3 + i, Cells(sheetMAIN, 3 + i, 14), INV, Industry);
-          }
           if(Cells(sheetMAIN, 3 + i, 15) != 'na')
             PPE++;
         }
@@ -240,7 +238,7 @@ router.post('/', (req, res) => {
                 }
               } else {
                 if(Cells(sheetMAIN, 3 + i, 9 + k) != 'na') {
-                  let Demon = Cells(sheetMAIN, 3 + i, 9 + k);
+                  let Demon = Number(Cells(sheetMAIN, 3 + i, 9 + k));
                   Asset_All[j+'_'+k] = Int_Amount / Demon;
                 }
               }
@@ -256,24 +254,11 @@ router.post('/', (req, res) => {
 
       }
 
-      for(let key in Asset_All) {
-
-          let keyArr = key.split('_');
-          switch(keyArr[1]) {
-            case '0':
-              Asset_PC.push(Asset_All[key]);
-              break;
-            case '1':
-              Asset_NA.push(Asset_All[key]);
-              break;
-            case '2':
-              Asset_NANC.push(Asset_All[key]);
-              break;
-            case '3':
-              Asset_EC.push(Asset_All[key]);
-              break;
-          }
-
+      for(l = 0; l<=200; l++) {
+        Asset_PC.push(Asset_All[l+'_'+0]);
+        Asset_NA.push(Asset_All[l+'_'+1]);
+        Asset_NANC.push(Asset_All[l+'_'+2]);
+        Asset_EC.push(Asset_All[l+'_'+3]);
       }
 
       sheet[(18 + A) + '_' + 4]    = median(Asset_PC);
