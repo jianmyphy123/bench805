@@ -15,7 +15,7 @@ header(class="#{headerClass}")
     if user
       .header_right_tool.logged
         // visible blog logged or not
-        if(title == 'Result')
+        if title == 'Result'
           .btn_filters_vis
         .btn_user_tool_vis
         .usertool.align_c
@@ -25,17 +25,29 @@ header(class="#{headerClass}")
             .btn_logout
               a(type='submit' href='/logout')
         .btn_menu_vis
-        nav.header_menu
-          div
-            a(href='/about', title='bench805.com | About')
-              | About
-          div
-            a(href='mailto:info@bench805.com?subject=Feedback', target='_blank', title='bench805.com | Get in Touch')
-              | Get in Touch
+        if admin
+          nav.header_menu
+            div
+              a(href='/admin', title='bench805.com | Admin')
+                | Admin
+            div
+              a(href='/dashboard', title='bench805.com | Benchmarking')
+                | Benchmarking
+        else
+          nav.header_menu
+            div
+              a(href='/about', title='bench805.com | About')
+                | About
+            div
+              a(href='/dashboard', title='bench805.com | Benchmarking')
+                | Benchmarking
+            div
+              a(href='mailto:info@bench805.com?subject=Feedback', target='_blank', title='bench805.com | Get in Touch')
+                | Get in Touch
     else
       .header_right_tool
         // visible blog logged or not
-        if(title == 'Result')
+        if title == 'Result'
           .btn_filters_vis
         .btn_user_tool_vis
         .usertool.align_c

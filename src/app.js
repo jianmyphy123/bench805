@@ -9,7 +9,7 @@ import expressValidator from 'express-validator';
 import flash from 'connect-flash';
 import multer from 'multer';
 
-import { jwtSecret } from './config';
+import { jwtSecret, admin as adminConfig } from './config';
 
 import index from './routes/index';
 import users from './routes/users';
@@ -73,11 +73,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.post('*', function(req, res, next) {
   res.locals.user = req.user || null;
+
+	if(req.user && req.user.email === adminConfig.email)
+		res.locals.admin = req.user || null;
+
   next();
 });
 
 app.get('*', function(req, res, next) {
   res.locals.user = req.user || null;
+
+	if(req.user && req.user.email === adminConfig.email)
+		res.locals.admin = req.user || null;
+
   next();
 });
 
