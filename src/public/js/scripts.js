@@ -446,6 +446,19 @@ jQuery(document).ready(function(){
 		}
 	});
 
+	$('.cmn-toggle-yes-no').click(function(e) {
+		var checkval = this.checked ? 1 : 0;
+		var id = this.id.substring(11);
+		$.ajax({
+        type: "POST",
+        url: '/admin/users',
+        data: {id, checkval},
+        success: function(data){
+          console.log(data.data);
+        }
+    });
+	});
+
 
 
 

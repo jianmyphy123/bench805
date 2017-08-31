@@ -1459,6 +1459,13 @@ export default StyleSheet.create({
         "minHeight": 800,
         "marginBottom": 40
     },
+    "users_responsive_table": {
+        "display": "block",
+        "width": "100%",
+        "zIndex": 1,
+        "minHeight": 800,
+        "marginBottom": 40
+    },
     "tabs_list": {
         "display": "table",
         "width": "100%",
@@ -1516,6 +1523,10 @@ export default StyleSheet.create({
         "paddingBottom": 10,
         "paddingLeft": 10,
         "fontSize": 13
+    },
+    "tr_user_name": {
+        "width": 40,
+        "verticalAlign": "top"
     },
     "tabs_content>div>div": {
         "display": "table-cell",

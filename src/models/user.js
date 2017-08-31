@@ -276,3 +276,55 @@ export const resetPasswordByToken = (password, resetToken, callback) => {
 	});
 
 }
+
+export const getUsers = (callback) => {
+
+	mysqlPool.getConnection((err, connection) => {
+		if(err) {
+			connection.release();
+			console.log(err);
+			return;
+		}
+
+		connection.query("select id, concat(firstname, ' ', lastname) as fullname, email , DATE_FORMAT(signupDate, '%m-%d-%Y') AS signupDate, enabled from user", (err, results) => {
+			if(err) {
+				connection.release();
+				console.log(err);
+				return;
+			}
+
+			connection.release();
+
+			return callback(results);
+
+		});
+
+	});
+
+}
+
+export const setEnable = (id, checkval, callback) => {
+
+	mysqlPool.getConnection((err, connection) => {
+		if(err) {
+			connection.release();
+			console.log(err);
+			return;
+		}
+
+		connection.query("update user set enabled='"+checkval+"' where id="+id, (err) => {
+			if(err) {
+				connection.release();
+				console.log(err);
+				return;
+			}
+
+			connection.release();
+
+			return callback();
+
+		});
+
+	});
+
+}

@@ -1485,6 +1485,14 @@
     margin-bottom: 40px
 }
 
+.users_responsive_table {
+    display: block;
+    width: 100%;
+    z-index: 1;
+    min-height: 800px;
+    margin-bottom: 40px
+}
+
 .tabs_list {
     display: table;
     width: 100%;
@@ -1535,6 +1543,11 @@
 
 .tr_name {
     width: 120px;
+    vertical-align: top
+}
+
+.tr_user_name {
+    width: 40px;
     vertical-align: top
 }
 
@@ -2306,6 +2319,10 @@ only screen and (max-device-width:520px) {
     .tabs_content>div>.tr_name {
         min-width: 120px!important;
         max-width: 120px!important
+    }
+    .tabs_content>div>.tr_user_name {
+        min-width: 40px!important;
+        max-width: 40px!important
     }
     .tabs_content>div {
         display: block;

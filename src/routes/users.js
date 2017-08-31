@@ -124,7 +124,10 @@ passport.use(new LocalStrategy({
 			comparePassword(password, user.password, (err, isMatch) => {
 				if(err) console.log(err);
 				if(isMatch) {
-          if(!user.active) {
+          if(!user.enabled) {
+            console.log('Sorry, Your account is disabled');
+            return done(null, false, { message: 'Sorry, Your account is disabled.'});
+          } else if(!user.active) {
             console.log('Not activated yet');
             return done(null, false, { message: 'Your account is not yet activated. Please check your e-mail for activation link.'});
           } else {

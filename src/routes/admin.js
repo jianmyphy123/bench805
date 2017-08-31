@@ -6,6 +6,7 @@ const router = express.Router();
 import { ensureAdmin } from '../common/authGuard';
 
 import { createTable, fetchTableData } from '../models/upload';
+import { getUsers, setEnable } from '../models/user';
 
 router.get('/', ensureAdmin, (req, res) => {
 
@@ -72,8 +73,31 @@ router.post('/upload', (req, res) => {
 router.get('/viewtable', ensureAdmin, (req, res) => {
 
   fetchTableData((result) => {
-    
+
     res.render('admin/viewtable', { title: 'Admin', tabledata: result });
+  });
+
+});
+
+router.get('/users', ensureAdmin, (req, res) => {
+
+  getUsers((results) => {
+
+    res.render('admin/users', { title: 'Admin', tabledata: results });
+  });
+
+});
+
+router.post('/users', (req, res) => {
+
+  console.log(req.body);
+
+  setEnable(req.body.id, req.body.checkval, (err) => {
+    if(err)
+      res.json({data: 'Error'});
+    else {
+      res.json({data: 'Successfully updated'});
+    }
   });
 
 });
