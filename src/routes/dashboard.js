@@ -2,6 +2,7 @@ import express from 'express';
 const router = express.Router();
 import { ensureAuthenticated } from '../common/authGuard';
 import { fetchTableData } from '../models/upload';
+import { saveTrackData } from '../models/track';
 
 
 router.get('/', ensureAuthenticated, (req, res) => {
@@ -13,6 +14,12 @@ router.post('/', (req, res) => {
 
   let reqdata = req.body;console.log(reqdata);
 
+  let data = Object.assign({}, reqdata);
+  data.firstname = req.user.firstname;
+  data.lastname = req.user.lastname;
+saveTrackData(data, () => {
+
+});
   //Calculates Goodwill and Contingenet Consideration, Inventory, PPA
   let Intangible, KeyWord, Industry, Industry1, Industry2, Discr;
   let GW_PC, GW_NA, GW_NANC, GW_EC, GW_INV, GW_PPE;

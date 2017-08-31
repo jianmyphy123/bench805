@@ -8,39 +8,28 @@ block content
       .padding_lr.stretch.clrfx
         .users_responsive_table.tabs.mobile_table(style='min-height: 338px;overflow: auto')
 
-          .tabs_content(style="width: 1800px")
+          .tabs_content
             div
               .tr_user_name No
               .tabs_box
                 .tab_3(style='width: 100%;')
-                  div(style='width: 5%;') First Name
-                  div(style='width: 5%;') Last Name
-                  div(style='width: 5%;') Search Date
-                  div(style='width: 10%;') Major Industries
-                  div(style='width: 10%;') Sub-Industries
-                  div(style='width: 10%;') Included Intangibles
-                  div(style='width: 10%;') Excluded Intangibles
-                  div(style='width: 10%;') Description Keywords
-                  div(style='width: 10%;') Intangible Keywords
-                  div(style='width: 10%;') Years
-                  div(style='width: 5%;') Include Preliminary
-                  div(style='width: 5%;') TBD1
-                  div(style='width: 5%;') TBD2
-
-            div
-              .tr_user_name 1
-              .tabs_box
-                .tab_3(style='width: 100%;')
-                  div(style='width: 5%;') John
-                  div(style='width: 5%;') Smith
-                  div(style='width: 5%;') 7/28/17
-                  div(style='width: 10%;') Information Technology
-                  div(style='width: 10%;') Software, eCommerce
-                  div(style='width: 10%;') Developed Technology, In-Process R&D
-                  div(style='width: 10%;') Trade Names
-                  div(style='width: 10%;') Game, Gaming
-                  div(style='width: 10%;') Content
-                  div(style='width: 10%;') 2015, 2016
-                  div(style='width: 5%;') Yes
-                  div(style='width: 5%;') TBD
-                  div(style='width: 5%;') TBD
+                  div(style='width: 9.0909%;') First Name
+                  div(style='width: 9.0909%;') Last Name
+                  div(style='width: 9.0909%;') Search Date
+                  div(style='width: 18.181818%;') Industries
+                  div(style='width: 18.181818%;') Description Keywords
+                  div(style='width: 18.181818%;') Included Intangibles
+                  div(style='width: 18.181818%;') Excluded Intangibles
+            if tabledata
+              each row, i in tabledata
+                div
+                  .tr_user_name #{i+1}
+                  .tabs_box
+                    .tab_3(style='width: 100%;')
+                      div(style='width: 9.0909%;') #{row.firstname}
+                      div(style='width: 9.0909%;') #{row.lastname}
+                      div(style='width: 9.0909%;') #{row.searchdate}
+                      div(style='width: 18.181818%;') #{row.industries}
+                      div(style='width: 18.181818%;') #{row.keywords}
+                      div(style='width: 18.181818%;') #{row.included_intans}
+                      div(style='width: 18.181818%;') #{row.excluded_intans}

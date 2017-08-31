@@ -7,6 +7,7 @@ import { ensureAdmin } from '../common/authGuard';
 
 import { createTable, fetchTableData } from '../models/upload';
 import { getUsers, setEnable } from '../models/user';
+import { getTrackData } from '../models/track';
 
 router.get('/', ensureAdmin, (req, res) => {
 
@@ -104,7 +105,12 @@ router.post('/users', (req, res) => {
 
 router.get('/trackusers', ensureAdmin, (req, res) => {
 
-  res.render('admin/trackusers', { title: 'Admin' });
+  getTrackData((results) => {
+
+    res.render('admin/trackusers', { title: 'Admin', tabledata: results });
+
+  });
+
 
 });
 
