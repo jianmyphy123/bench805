@@ -328,3 +328,14 @@ export const setEnable = (id, checkval, callback) => {
 	});
 
 }
+
+export const isEnabled = (email, callback) => {
+
+	getUserByEmail(email, user => {
+    if(user.enabled)
+      return callback(true);
+    else
+      return callback(false);
+  });
+
+}
