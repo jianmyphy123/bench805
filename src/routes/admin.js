@@ -102,4 +102,10 @@ router.post('/users', (req, res) => {
 
 });
 
+router.get('/trackusers', ensureAdmin, (req, res) => {
+
+  res.render('admin/trackusers', { title: 'Admin' });
+
+});
+
 export default router;
