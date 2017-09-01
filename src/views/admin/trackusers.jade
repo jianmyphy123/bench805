@@ -13,23 +13,21 @@ block content
               .tr_user_name No
               .tabs_box
                 .tab_3(style='width: 100%;')
-                  div(style='width: 9.0909%;') First Name
-                  div(style='width: 9.0909%;') Last Name
-                  div(style='width: 9.0909%;') Search Date
-                  div(style='width: 18.181818%;') Industries
-                  div(style='width: 18.181818%;') Description Keywords
-                  div(style='width: 18.181818%;') Included Intangibles
-                  div(style='width: 18.181818%;') Excluded Intangibles
+                  div(style='width: 10%;') Name
+                  div(style='width: 12%;') Search Date
+                  div(style='width: 20%;') Industries
+                  div(style='width: 20%;') Description Keywords
+                  div(style='width: 20%;') Included Intangibles
+                  div(style='width: 18%;') Excluded Intangibles
             if tabledata
               each row, i in tabledata
                 div
                   .tr_user_name #{i+1}
                   .tabs_box
                     .tab_3(style='width: 100%;')
-                      div(style='width: 9.0909%;') #{row.firstname}
-                      div(style='width: 9.0909%;') #{row.lastname}
-                      div(style='width: 9.0909%;') #{row.searchdate}
-                      div(style='width: 18.181818%;') #{row.industries}
-                      div(style='width: 18.181818%;') #{row.keywords}
-                      div(style='width: 18.181818%;') #{row.included_intans}
-                      div(style='width: 18.181818%;') #{row.excluded_intans}
+                      div(style='width: 10%;') #{row.fullname}
+                      div(style='width: 12%;') #{row.searchdate}
+                      div(style='width: 20%;') #{row.industries}
+                      div(style='width: 20%;') #{row.keywords}
+                      div(style='width: 20%;') #{row.included_intans}
+                      div(style='width: 18%;') #{row.excluded_intans}
