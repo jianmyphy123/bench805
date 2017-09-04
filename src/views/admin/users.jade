@@ -6,17 +6,19 @@ block content
 
     section.result_table_section
       .padding_lr.stretch.clrfx
-        .users_responsive_table.tabs.mobile_table(style='min-height: 338px;')
+        .users_responsive_table.tabs.mobile_table(style='min-height: 338px; overflow: auto')
 
-              .tabs_content
+              .tabs_content(style='min-width: 1000px;')
                 div
                   .tr_user_name No
                   .tabs_box
                     .tab_3(style='width: 100%;')
-                      div(style='width: 25%;') Name
-                      div(style='width: 35%;') Email
-                      div(style='width: 25%;') Date registered
-                      div(style='width: 15%;') Enabled
+                      div(style='width: 20%;') Name
+                      div(style='width: 20%;') Email
+                      div(style='width: 20%;') Date registered
+                      div(style='width: 10%;') Company
+                      div(style='width: 20%;') Job Function
+                      div(style='width: 10%;') Enabled
 
                 if tabledata
                   each row, i in tabledata
@@ -24,10 +26,12 @@ block content
                       .tr_user_name #{i+1}
                       .tabs_box
                         .tab_3(style='width: 100%;')
-                          div(style='width: 25%;') #{row.fullname}
-                          div(style='width: 35%;') #{row.email}
-                          div(style='width: 25%;') #{row.signupDate}
-                          div(style='width: 15%;')
+                          div(style='width: 20%;') #{row.fullname}
+                          div(style='width: 20%;') #{row.email}
+                          div(style='width: 20%;') #{row.signupDate}
+                          div(style='width: 10%;') #{row.company}
+                          div(style='width: 20%;') #{jobfunctiondata[row.jobfunction] ? jobfunctiondata[row.jobfunction] : ''}
+                          div(style='width: 10%;')
                             if(row.enabled == 1)
                               input.cmn-toggle.cmn-toggle-yes-no(id='cmn-toggle-#{row.id}', type="checkbox", checked)
                             else

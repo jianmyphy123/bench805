@@ -286,7 +286,7 @@ export const getUsers = (callback) => {
 			return;
 		}
 
-		connection.query("select id, concat(firstname, ' ', lastname) as fullname, email , DATE_FORMAT(signupDate, '%m-%d-%Y') AS signupDate, enabled from user", (err, results) => {
+		connection.query("select id, concat(firstname, ' ', lastname) as fullname, email , DATE_FORMAT(signupDate, '%m-%d-%Y') AS signupDate, enabled, company, jobfunction from user", (err, results) => {
 			if(err) {
 				connection.release();
 				console.log(err);

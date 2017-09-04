@@ -2359,10 +2359,10 @@ ul.error li {
 ul.success, ul.error {
   -webkit-animation: seconds 1.0s forwards;
   -webkit-animation-iteration-count: 1;
-  -webkit-animation-delay: 3s;
+  -webkit-animation-delay: 10s;
   animation: seconds 1.0s forwards;
   animation-iteration-count: 1;
-  animation-delay: 3s;
+  animation-delay: 10s;
 }
 
 @-webkit-keyframes seconds {

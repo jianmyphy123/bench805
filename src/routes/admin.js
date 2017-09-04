@@ -74,7 +74,7 @@ router.post('/upload', (req, res) => {
 router.get('/viewtable', ensureAdmin, (req, res) => {
 
   fetchTableData((result) => {
-
+    result.shift();
     res.render('admin/viewtable', { title: 'Admin', tabledata: result });
   });
 
@@ -82,9 +82,18 @@ router.get('/viewtable', ensureAdmin, (req, res) => {
 
 router.get('/users', ensureAdmin, (req, res) => {
 
+  let jobfunctiondata = {
+    job_1: 'Valuation Specialist',
+    job_2: 'Auditor',
+    job_3: 'Finance Executive',
+    job_4: 'Press',
+    job_5: 'Government',
+    job_6: 'Other'
+  };
+
   getUsers((results) => {
 
-    res.render('admin/users', { title: 'Admin', tabledata: results });
+    res.render('admin/users', { title: 'Admin', tabledata: results, jobfunctiondata: jobfunctiondata });
   });
 
 });

@@ -2075,17 +2075,17 @@ export default StyleSheet.create({
     "ulsuccess": {
         "WebkitAnimation": "seconds 1.0s forwards",
         "WebkitAnimationIterationCount": 1,
-        "WebkitAnimationDelay": "3s",
+        "WebkitAnimationDelay": "10s",
         "animation": "seconds 1.0s forwards",
         "animationIterationCount": 1,
-        "animationDelay": "3s"
+        "animationDelay": "10s"
     },
     "ulerror": {
         "WebkitAnimation": "seconds 1.0s forwards",
         "WebkitAnimationIterationCount": 1,
-        "WebkitAnimationDelay": "3s",
+        "WebkitAnimationDelay": "10s",
         "animation": "seconds 1.0s forwards",
         "animationIterationCount": 1,
-        "animationDelay": "3s"
+        "animationDelay": "10s"
     }
 });

@@ -126,7 +126,7 @@ passport.use(new LocalStrategy({
 				if(isMatch) {
           if(!user.enabled) {
             console.log('Sorry, Your account is disabled');
-            return done(null, false, { message: 'Sorry, Your account is disabled.'});
+            return done(null, false, { message: "Please contact administrator at <a href='mailto:info@bench805.com' title='info@bench805.com'>info@bench805.com</a> regarding your account"});
           } else if(!user.active) {
             console.log('Not activated yet');
             return done(null, false, { message: 'Your account is not yet activated. Please check your e-mail for activation link.'});

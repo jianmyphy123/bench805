@@ -65,7 +65,7 @@ export const getTrackData = (callback) => {
 			return;
 		}
 
-		connection.query("select concat(firstname, ' ', lastname) as fullname, DATE_FORMAT(searchdate, '%m-%d-%Y') AS searchdate, industries, included_intans, excluded_intans, keywords from track ", (err, results) => {
+		connection.query("select concat(firstname, ' ', lastname) as fullname, DATE_FORMAT(searchdate, '%m-%d-%Y') AS searchdate, industries, included_intans, excluded_intans, keywords from track order by id desc", (err, results) => {
 			if(err) {
 				connection.release();
 				console.log(err);
